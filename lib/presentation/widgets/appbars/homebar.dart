@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-
 import '../../../application/services/auth.dart';
 
 class HomeBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeBar({super.key, required this.titleText, this.leadingWidget, this.titleWidget});
+  HomeBar({super.key, required this.titleText, this.leadingWidget, this.titleWidget});
 
   final String titleText;
   final Widget? leadingWidget;
   final Widget? titleWidget;
+
+  var option = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +23,24 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
             child: Icon(Icons.menu, color: Colors.black,),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: GestureDetector(
-                  onTap: () {
-                    AuthService.authService.signOut();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Text('Logout'),
-                      ),
-                      Icon(Icons.logout, color: Colors.black),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text('Logout'),
+                    ),
+                    Icon(Icons.logout, color: Colors.black),
+                  ],
                 ),
+                value: option,
               )
             ],
+            onSelected: (value){
+              if(value == 1){
+                AuthService.authService.signOut();
+              }
+            }
           )
         )
       ],
