@@ -16,7 +16,12 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainBar(titleText: 'Translator'),
+      appBar: MainBar(
+        titleText: 'Translator',
+        leadingWidget: BackButton(
+          color: Colors.black,
+        ),
+      ),
       body: const CameraService()
       // body: CameraScreen()
     );
