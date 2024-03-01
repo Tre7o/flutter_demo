@@ -4,6 +4,9 @@ import 'package:flutter_demo/presentation/widgets/list_widgets/profile_blocks/em
 import 'package:flutter_demo/presentation/widgets/list_widgets/profile_blocks/phone_list_item.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/profile_blocks/status/status_block.dart';
 
+import '../home/home_page.dart';
+import '../settings/settings_page.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -12,6 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
+        padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
         child: Column(
           children: [
             Center(
@@ -55,10 +59,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold),
               ),
-            ),
+            )
           ],
         ),
       ),
+
     );
   }
 }
