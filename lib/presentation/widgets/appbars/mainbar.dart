@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+
+import '../../../application/services/auth.dart';
+
+class MainBar extends StatelessWidget implements PreferredSizeWidget {
+  const MainBar(
+      {super.key,
+      required this.titleText,
+      this.leadingWidget,
+      this.titleWidget});
+
+  final String titleText;
+  final Widget? leadingWidget;
+  final Widget? titleWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      elevation: 0,
+      leading: leadingWidget,
+      title: titleWidget ??
+          Text(
+            titleText,
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w400),
+          ),
+      actions: [
+        Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+            child: PopupMenuButton(
+              child: Icon(
+                Icons.menu,
+                color: Colors.black,
+              ),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  child: GestureDetector(
+                    onTap: () {
+                      AuthService.authService.signOut();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Text('Logout'),
+                        ),
+                        Icon(Icons.logout, color: Colors.black),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ))
+      ],
+    );
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size(double.maxFinite, 60);
+}
