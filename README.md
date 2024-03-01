@@ -5,7 +5,7 @@ The Sign Language to Speech/Text Converter is a system that aims to aid deaf-mut
 1. Open VSCODE or any text editor application of your choice
 
 2. Clone repository: 
-git clone https://github.com/Tre7o/Sign-Language-Converter-Flutter.git
+git clone https://github.com/Tre7o/flutter_demo.git
 
 3. Create your branch and checkout to your branch:
 eg. git checkout -b my-branch
