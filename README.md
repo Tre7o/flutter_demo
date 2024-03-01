@@ -1,16 +1,17 @@
-# flutter_demo
+# Sign-Language-Converter
+The Sign Language to Speech/Text Converter is a system that aims to aid deaf-mute people to communicate with other people more effectively, by translating sign language into text or speech
 
-A new Flutter project.
+# Adding to the codebase
+1. Open VSCODE or any text editor application of your choice
 
-## Getting Started
+2. Clone repository: 
+git clone https://github.com/Tre7o/Sign-Language-Converter-Flutter.git
 
-This project is a starting point for a Flutter application.
+3. Create your branch and checkout to your branch:
+eg. git checkout -b my-branch
 
-A few resources to get you started if this is your first Flutter project:
+4. Add and test out your feature
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+5. Run/debug the application
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+6. Save your changes, commit and push your branch
