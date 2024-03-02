@@ -5,24 +5,29 @@ class LanguageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: Icon(Icons.language),
+    return GestureDetector(
+      onTap: (){
+        Navigator.pushNamed(context, '/language');
+      },
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Icon(Icons.language),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Text('Language Preference'),
+            ),
+          ]),
+          Icon(
+            Icons.arrow_right_sharp,
+            size: 50,
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-            child: Text('Language Preference'),
-          ),
-        ]),
-        Icon(
-          Icons.arrow_right_sharp,
-          size: 50,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

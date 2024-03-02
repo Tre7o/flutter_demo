@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_demo/application/services/auth.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
 import 'package:flutter_demo/presentation/pages/camera_page.dart';
+import 'package:flutter_demo/presentation/pages/language_page.dart';
 import 'package:flutter_demo/presentation/pages/main_screen.dart';
 import 'package:flutter_demo/presentation/pages/on_boarding.dart';
 import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomeScreen(),
         '/translator': (context) => CameraPage(),
-        '/profile': (context) => ProfilePage()
+        '/profile': (context) => ProfilePage(),
+        '/language': (context) => LanguagePage()
       },
     );
   }
