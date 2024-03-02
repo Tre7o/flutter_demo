@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
-import 'package:get/get.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -11,11 +10,28 @@ class OnBoardingScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
+            Container(
+              height: 500,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/onboarding.jpg')
+                )
+              ),
+            ),
             SizedBox(
-              height: Get.height - 110,
-              
-              child: Center(
-                child: Text("Welcome to Sign Talk", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+              height: 200,
+              child: Column(
+                children: [
+                  Text('Welcome to Sign Talk', style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                  Padding(
+                    padding: const EdgeInsets.all(45.0),
+                    child: Text(
+                      'Your one stop to all your sign language conversion needs, here to bridge the gap between the deaf and hearing community',
+                      style: TextStyle(fontWeight: FontWeight.w100, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                ],
               ),
             ),
             OutlinedButton(

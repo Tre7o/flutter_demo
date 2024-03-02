@@ -32,9 +32,12 @@ class _HomePageState extends State<HomePage> {
               width: 350,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Colors.grey[400],
+                image: DecorationImage(
+                  image: AssetImage('assets/images/main_image.jpg'),
+                  fit: BoxFit.cover
+                ),
+                // color: Colors.grey[400],
               ),
-              
             ),
             SizedBox(height: 20),
             Container(

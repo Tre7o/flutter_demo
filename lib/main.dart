@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OnBoardingScreen(),
+      home: HomeScreen(),
       title: "Sign Talk",
       initialBinding: GlobalBindings(),
       routes: {
