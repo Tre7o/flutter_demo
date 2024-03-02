@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../application/services/auth.dart';
+import '../../pages/main_screen.dart';
 
 class MainBar extends StatelessWidget implements PreferredSizeWidget {
-  const MainBar(
+  MainBar(
       {super.key,
       required this.titleText,
       this.leadingWidget,
@@ -12,6 +14,9 @@ class MainBar extends StatelessWidget implements PreferredSizeWidget {
   final String titleText;
   final Widget? leadingWidget;
   final Widget? titleWidget;
+
+  var firstOption = 1;
+  var secondOption = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -28,32 +33,49 @@ class MainBar extends StatelessWidget implements PreferredSizeWidget {
           ),
       actions: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
-            child: PopupMenuButton(
-              child: Icon(
-                Icons.menu,
-                color: Colors.black,
-              ),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: GestureDetector(
-                    onTap: () {
-                      AuthService.authService.signOut();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Text('Logout'),
-                        ),
-                        Icon(Icons.logout, color: Colors.black),
-                      ],
+          padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
+          child: PopupMenuButton(
+            child: Icon(
+              Icons.menu,
+              color: Colors.black,
+            ),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text('Home'),
                     ),
-                  ),
-                )
-              ],
-            ))
+                    Icon(Icons.home_rounded, color: Colors.black),
+                  ],
+                ),
+                value: firstOption,
+              ),
+              PopupMenuItem(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Text('Logout'),
+                    ),
+                    Icon(Icons.logout, color: Colors.black),
+                  ],
+                ),
+                value: secondOption,
+              ),
+            ],
+            onSelected: (value){
+              if(value == 1){
+                Get.offAll(() => HomeScreen());
+              }else if(value == 2){
+                AuthService.authService.signOut();
+              }
+            },
+          )
+        )
       ],
     );
   }
