@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/application/services/auth.dart';
-import 'package:flutter_demo/presentation/pages/main_screen.dart';
+import 'package:flutter_demo/presentation/pages/main_page.dart';
 import 'package:flutter_demo/presentation/widgets/appbars/mainbar.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/list_block/account_block.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/list_block/general_block.dart';
