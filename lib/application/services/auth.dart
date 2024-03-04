@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_demo/application/exceptions/sign_up_exception.dart';
+import 'package:flutter_demo/application/exceptions/auth_exceptions/sign_up_exception.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_in_page.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
 import 'package:flutter_demo/presentation/pages/camera_page.dart';
@@ -35,7 +35,7 @@ class AuthService extends GetxController {
         : Get.offAll(() => SignInScreen());
   }
 
-  Future<void> registerWithEmailAndPassword(
+  Future<String?> registerWithEmailAndPassword(
       String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(
@@ -46,13 +46,17 @@ class AuthService extends GetxController {
     } on FirebaseAuthException catch (firebaseExp) {
       final ex = SignUpWithEmailAndPasswordFailure.code(firebaseExp.code);
       print('FIREBASE AUTH EXCEPTION - ${ex.message}');
+      return ex.message;
     } catch (_) {
       const exception = SignUpWithEmailAndPasswordFailure();
       print('EXCEPTION - ${exception.message}');
+      return exception.message;
     }
+    return null;
   }
 
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<String?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       user.value != null
@@ -60,9 +64,12 @@ class AuthService extends GetxController {
           : Get.offAll(() => SignInScreen());
     } on FirebaseAuthException catch (firebaseExp) {
       print(firebaseExp.message);
+      return firebaseExp.message;
     } catch (e) {
       print(e.toString());
+      return e.toString();
     }
+    return null;
   }
 
   Future signOut() async {

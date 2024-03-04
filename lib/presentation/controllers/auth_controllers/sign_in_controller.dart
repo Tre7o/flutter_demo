@@ -9,7 +9,25 @@ class SignInController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
 
-  void loginUser(String email, String password) {
-    AuthService.authService.signInWithEmailAndPassword(email, password);
+  // void loginUser(String email, String password) {
+  //   AuthService.authService.signInWithEmailAndPassword(email, password);
+  // }
+
+  Future<void> loginUser(String email, String password) async {
+    String? error = await AuthService.authService
+        .signInWithEmailAndPassword(email, password);
+    if (error != null) {
+      Get.showSnackbar(GetSnackBar(
+        message: error.toString(),
+        duration: Duration(seconds: 1),
+        margin: EdgeInsets.all(8),
+      ));
+    } else {
+      Get.snackbar("Success", "You've logged in.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green[100],
+          margin: EdgeInsets.all(8),
+          colorText: Colors.green);
+    }
   }
 }
