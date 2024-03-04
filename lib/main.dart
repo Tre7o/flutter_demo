@@ -5,7 +5,7 @@ import 'package:flutter_demo/application/services/auth.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
 import 'package:flutter_demo/presentation/pages/camera_page.dart';
 import 'package:flutter_demo/presentation/pages/language_page.dart';
-import 'package:flutter_demo/presentation/pages/main_screen.dart';
+import 'package:flutter_demo/presentation/pages/main_page.dart';
 import 'package:flutter_demo/presentation/pages/on_boarding.dart';
 import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
 import 'package:get/get.dart';
