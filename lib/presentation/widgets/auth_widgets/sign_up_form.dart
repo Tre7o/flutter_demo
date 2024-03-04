@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/domain/models/user_model.dart';
 import 'package:flutter_demo/presentation/controllers/auth_controllers/sign_up_controller.dart';
 import 'package:get/get.dart';
 
@@ -53,11 +54,19 @@ class SignUpForm extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    final user = UserModel(
+                        name: controller.name.text.trim(),
+                        email: controller.email.text.trim(),
+                        password: controller.password.text.trim(),
+                        phoneNo: controller.phoneNo.text.trim());
+
                     SignUpController.signUpController.registerUser(
                         controller.email.text.trim(),
                         controller.password.text.trim());
                     print(controller.email.text.trim());
                     print(controller.password.text.trim());
+
+                    SignUpController.signUpController.createDBUser(user);
                   }
                 },
                 style: ElevatedButton.styleFrom(
