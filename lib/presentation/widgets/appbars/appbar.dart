@@ -14,6 +14,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       elevation: 5,
       title: titleWidget ?? Text(titleText, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),),
+      leading: leadingWidget,
     );
   }
 

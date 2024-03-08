@@ -4,10 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_demo/application/services/auth.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
 import 'package:flutter_demo/presentation/pages/camera_page.dart';
-import 'package:flutter_demo/presentation/pages/language_page.dart';
+import 'package:flutter_demo/presentation/pages/profile/edit_profile.dart';
+import 'package:flutter_demo/presentation/pages/settings/language/language_page.dart';
 import 'package:flutter_demo/presentation/pages/main_page.dart';
 import 'package:flutter_demo/presentation/pages/on_boarding.dart';
 import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
+import 'package:flutter_demo/presentation/pages/settings/support/about/about_page.dart';
+import 'package:flutter_demo/presentation/pages/settings/support/help_page.dart';
 import 'package:get/get.dart';
 
 import 'firebase_options.dart';
@@ -32,14 +35,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: OnBoardingScreen(),
       title: "Sign Talk",
       initialBinding: GlobalBindings(),
       routes: {
         '/home': (context) => HomeScreen(),
         '/translator': (context) => CameraPage(),
         '/profile': (context) => ProfilePage(),
-        '/language': (context) => LanguagePage()
+        '/language': (context) => LanguagePage(),
+        '/about': (context) => AboutPage(),
+        '/help': (context) => HelpPage(),
+        '/editprofile': (context) => EditProfile(),
       },
     );
   }

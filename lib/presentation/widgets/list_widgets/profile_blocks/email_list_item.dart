@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EmailListItem extends StatefulWidget {
-  const EmailListItem({super.key});
+class EmailListItem extends StatelessWidget {
+  const EmailListItem({super.key, this.userEmail});
 
-  @override
-  State<EmailListItem> createState() => _EmailListItemState();
-}
+  final String? userEmail;
 
-class _EmailListItemState extends State<EmailListItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +13,7 @@ class _EmailListItemState extends State<EmailListItem> {
       child: Container(
         height: Get.height * 0.120,
         width: Get.width,
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
@@ -29,7 +26,10 @@ class _EmailListItemState extends State<EmailListItem> {
             Row(children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: Text('name@gmail.com', style: TextStyle(color: Colors.grey),),
+                child: Text(
+                  userEmail!,
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
             ]),
             Divider(
@@ -44,4 +44,3 @@ class _EmailListItemState extends State<EmailListItem> {
     );
   }
 }
-
