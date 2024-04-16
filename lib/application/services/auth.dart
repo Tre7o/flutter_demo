@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_demo/application/exceptions/auth_exceptions/sign_in_exception.dart';
 import 'package:flutter_demo/application/exceptions/auth_exceptions/sign_up_exception.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_in_page.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
@@ -22,6 +23,7 @@ class AuthService extends GetxController {
     ever(user, _setInitialScreen);
   }
 
+  // switch screen based on whether user is logged in or not
   _setInitialScreen(User? user) {
     user == null
         ? Get.offAll(() => OnBoardingScreen())
@@ -62,12 +64,15 @@ class AuthService extends GetxController {
       user.value != null
           ? Get.offAll(() => HomeScreen())
           : Get.offAll(() => SignInScreen());
-    } on FirebaseAuthException catch (firebaseExp) {
-      print(firebaseExp.message);
-      return firebaseExp.message;
-    } catch (e) {
-      print(e.toString());
-      return e.toString();
+    } on FirebaseAuthException catch (firebaseEx) {
+      final ex = SignInWithEmailAndPasswordFailure.code(firebaseEx.code);
+      print('signInWithEmailAndPassword says ${ex.message}');
+      print('signInWithEmailAndPassword says ${firebaseEx.code}');
+      return ex.message;
+    } catch (_) {
+      const exception = SignInWithEmailAndPasswordFailure();
+      print(exception.message);
+      return exception.message;
     }
     return null;
   }

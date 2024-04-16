@@ -5,14 +5,25 @@ import 'package:get/get.dart';
 
 import '../../controllers/auth_controllers/sign_in_controller.dart';
 
-class SignInForm extends StatelessWidget {
+class SignInForm extends StatefulWidget {
+  
   SignInForm({super.key});
+
+  @override
+  State<SignInForm> createState() => _SignInFormState();
+}
+
+class _SignInFormState extends State<SignInForm> {
   final controller = Get.put(SignInController());
+
   final _formKey =
-      GlobalKey<FormState>(); // this _formKey is used to identify our form
+      GlobalKey<FormState>();  // this _formKey is used to identify our form
+
+  bool showLoader = false;
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Form(
@@ -22,6 +33,12 @@ class SignInForm extends StatelessWidget {
               TextFormField(
                 controller: controller.email,
                 decoration: textInputDecoration.copyWith(label: Text('Email')),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -31,6 +48,12 @@ class SignInForm extends StatelessWidget {
                 obscureText: true,
                 decoration:
                     textInputDecoration.copyWith(label: Text('Password')),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a password';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 20,
@@ -38,16 +61,22 @@ class SignInForm extends StatelessWidget {
               const SizedBox(
                 height: 390,
               ),
-              ElevatedButton(
-                onPressed: () {
+              showLoader? CircularProgressIndicator() : ElevatedButton(
+                onPressed: () async {
+                                  
                   if (_formKey.currentState!.validate()) {
-                    SignInController.signInController.loginUser(
+                    setState(() {
+                      showLoader = true;
+                    }); 
+                    await SignInController.signInController.loginUser(
                       controller.email.text.trim(),
                       controller.password.text.trim()
                     );
-                    print(controller.email.text.trim());
-                    print(controller.password.text.trim());
+                    
                   }
+                  setState(() {
+                    showLoader = false;
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PhoneListItem extends StatefulWidget {
-  const PhoneListItem({super.key});
+class PhoneListItem extends StatelessWidget {
+  const PhoneListItem({super.key, this.userNumber});
 
-  @override
-  State<PhoneListItem> createState() => _PhoneListItemState();
-}
+  final String? userNumber;
 
-class _PhoneListItemState extends State<PhoneListItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +13,7 @@ class _PhoneListItemState extends State<PhoneListItem> {
       child: Container(
         height: Get.height * 0.120,
         width: Get.width,
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
@@ -29,7 +26,10 @@ class _PhoneListItemState extends State<PhoneListItem> {
             Row(children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: Text('0702392191', style: TextStyle(color: Colors.grey),),
+                child: Text(
+                  userNumber!,
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
             ]),
             Divider(

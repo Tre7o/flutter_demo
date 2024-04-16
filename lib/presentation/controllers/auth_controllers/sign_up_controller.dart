@@ -15,16 +15,20 @@ class SignUpController extends GetxController {
 
   final userRepo = Get.put(UserRepository());
 
-  Future<void> registerUser(String email, String password) async {
+  Future<String?> registerUser(String email, String password) async {
     String? error = await AuthService.authService
         .registerWithEmailAndPassword(email, password);
+    print('registerUser says $error');
     if (error != null) {
       Get.showSnackbar(GetSnackBar(
         message: error.toString(),
         duration: Duration(seconds: 1),
         margin: EdgeInsets.all(8),
       ));
+    } else {
+      return error;
     }
+    return null;
   }
 
   Future<void> createDBUser(UserModel user) async {

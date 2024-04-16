@@ -18,7 +18,7 @@ class _LanguagePageState extends State<LanguagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainBar(
-        titleText: 'Language Preference',
+        titleText: 'Language',
         leadingWidget: BackButton(color: Colors.black),
       ),
       body: Padding(

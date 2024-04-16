@@ -22,6 +22,7 @@ class SignInController extends GetxController {
         duration: Duration(seconds: 1),
         margin: EdgeInsets.all(8),
       ));
+      print('loginUser says $error');
     } else {
       Get.snackbar("Success", "You've logged in.",
           snackPosition: SnackPosition.BOTTOM,

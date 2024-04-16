@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/presentation/controllers/profile_controller.dart';
 import 'package:flutter_demo/presentation/widgets/appbars/mainbar.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/profile_blocks/email_list_item.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/profile_blocks/phone_list_item.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/profile_blocks/status/status_block.dart';
+import 'package:get/get.dart';
 
-import '../home/home_page.dart';
-import '../settings/settings_page.dart';
+import '../../../domain/models/user_model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,6 +16,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final controller = Get.put(ProfileController());
+
+  String getInitials(String name) {
+    final String initials;
+    if (name.contains('')) {
+      final splitted = name.split(' ');
+      final firstInitial = splitted[0].substring(0, 1);
+      final lastInitial = splitted[1].substring(0, 1);
+      initials = firstInitial + lastInitial;
+    } else {
+      initials = name.substring(0, 1);
+    }
+    return initials;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,45 +40,73 @@ class _ProfilePageState extends State<ProfilePage> {
           color: Colors.black,
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
-        child: Column(
-          children: [
-            Center(
-              child: CircleAvatar(
-                child: Text('JT', style: TextStyle(fontSize: 25),),
-                backgroundColor: Colors.blue,
-                radius: 50,
-              ),
-            ),
-            Container(
-              // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-              alignment: Alignment.center,
-              height: 50,
-              child: Text(
-                'John Trevor'
-              ),
-            ),
-            EmailListItem(),
-            PhoneListItem(),
-            StatusBlock(),
-            ElevatedButton(
-              onPressed: () {
-
-              },
-              style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 20, horizontal: 150)),
-              child: const Text(
-                "Edit Profile",
-                style: TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
-        ),
-      ),
-
+      body: FutureBuilder(
+          future: controller.getUserData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              // if data is completely fetched
+              if (snapshot.hasData) {
+                // if snapshot has data
+                UserModel userData = snapshot.data as UserModel;
+                print(userData.id);
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: CircleAvatar(
+                          child: Text(
+                            getInitials(userData.name),
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          backgroundColor: Colors.blue,
+                          radius: 50,
+                        ),
+                      ),
+                      Container(
+                        // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+                        alignment: Alignment.center,
+                        height: 50,
+                        child: Text(userData.name),
+                      ),
+                      EmailListItem(
+                        userEmail: userData.email,
+                      ),
+                      PhoneListItem(
+                        userNumber: userData.phoneNo,
+                      ),
+                      StatusBlock(),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/editprofile');
+                        },
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 20, horizontal: 150)),
+                        child: const Text(
+                          "Edit Profile",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text(snapshot.error.toString()),
+                );
+              } else {
+                return Center(
+                  child: Text('Something went wrong'),
+                );
+              }
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 }
