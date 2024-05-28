@@ -4,6 +4,7 @@ import 'package:flutter_demo/domain/models/conversion_record.dart';
 import 'package:flutter_demo/presentation/widgets/loading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter_vision/flutter_vision.dart';
+import 'package:wakelock/wakelock.dart';
 import 'package:get/get.dart';
 
 class CameraVision extends StatefulWidget {
@@ -37,6 +38,7 @@ class _CameraVisionState extends State<CameraVision> {
   @override
   void initState() {
     super.initState();
+    Wakelock.enable();
     init();
   }
 
@@ -62,7 +64,7 @@ class _CameraVisionState extends State<CameraVision> {
     try {
       await vision.loadYoloModel(
           labels: 'assets/labels.txt',
-          modelPath: 'assets/model_float32.tflite',
+          modelPath: 'assets/sign_model.tflite',
           modelVersion: "yolov8",
           numThreads: 2,
           useGpu: false);
@@ -147,8 +149,9 @@ class _CameraVisionState extends State<CameraVision> {
 
   @override
   void dispose() {
-    super.dispose();
+    Wakelock.disable();
     _cameraController.dispose();
+    super.dispose();
   }
 
   void initTTS() {

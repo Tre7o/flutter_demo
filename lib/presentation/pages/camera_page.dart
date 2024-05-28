@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/widgets/appbars/mainbar.dart';
 import '../../application/services/camera_vision.dart';
+import '../../application/services/yolo_video.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({Key? key}) : super(key: key);
@@ -19,11 +20,8 @@ class _CameraPageState extends State<CameraPage> {
             color: Colors.black,
           ),
         ),
-        body: const CameraVision()
-        // body: const CameraService()
-        // body: const CameraScreen()
-        // body: const YoloVideo(),
+        // body: const CameraVision(),
+        body: const YoloVideo(),
         );
-    // return Container();
   }
 }

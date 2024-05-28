@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../application/services/auth.dart';
 import '../../pages/main_page.dart';
 
+// ignore: must_be_immutable
 class MainBar extends StatelessWidget implements PreferredSizeWidget {
   MainBar(
       {super.key,

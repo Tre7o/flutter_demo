@@ -61,6 +61,7 @@ dependencies:
 
   image: ^3.2.0
   shared_preferences: ^2.2.2
+  wakelock: ^0.6.2
 
 dev_dependencies:
   flutter_test:
@@ -89,6 +90,7 @@ flutter:
     - assets/labels.txt
     - assets/model_float32.tflite
     - assets/model_unquant.tflite
+    - assets/sign_model.tflite
     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
