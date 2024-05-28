@@ -19,16 +19,18 @@ class SignInController extends GetxController {
     if (error != null) {
       Get.showSnackbar(GetSnackBar(
         message: error.toString(),
-        duration: Duration(seconds: 1),
-        margin: EdgeInsets.all(8),
+        duration: const Duration(seconds: 1),
+        margin: const EdgeInsets.all(8),
       ));
       print('loginUser says $error');
     } else {
       Get.snackbar("Success", "You've logged in.",
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green[100],
-          margin: EdgeInsets.all(8),
-          colorText: Colors.green);
+        snackPosition: SnackPosition.BOTTOM,
+        // backgroundColor: Colors.green[100],
+        duration: const Duration(seconds: 1),
+        margin: const EdgeInsets.all(8),
+        // colorText: Colors.green
+      );
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/application/services/scan_controller.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class CaptureButton extends GetView<ScanController> {
   CaptureButton({super.key});
   int capture = 0;
@@ -13,7 +14,7 @@ class CaptureButton extends GetView<ScanController> {
         right: Get.width / 2.5,
         child: GestureDetector(
           onTap: () {
-            capture = 1;
+            
           },
           child: Container(
             height: 80,

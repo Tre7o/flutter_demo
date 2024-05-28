@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -48,23 +47,20 @@ dependencies:
   # database
   cloud_firestore: ^4.14.0
 
-  # camera
-  flutter_camera: ^1.0.0
+  # text-to-speech service
+  flutter_tts: ^4.0.2
 
   # camera
   camera: ^0.10.5+8
 
   # machine learning
-  tflite: ^1.1.2
+  flutter_vision: ^1.1.4
 
   # state management
   get: ^4.6.5
 
-  image: ^4.1.3
-
-  flutter_native_splash: ^2.3.2
-
-  popover: ^0.2.0
+  image: ^3.2.0
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -91,6 +87,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/labels.txt
+    - assets/model_float32.tflite
     - assets/model_unquant.tflite
     - assets/images/
 

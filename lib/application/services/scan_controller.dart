@@ -1,28 +1,52 @@
-import 'dart:typed_data';
 import 'package:camera/camera.dart';
 import 'package:get/get.dart';
-import 'package:image/image.dart' as img;
-import 'package:tflite/tflite.dart';
 
 class ScanController extends GetxController {
-  RxBool _isInitialized = RxBool(false);
+  final RxBool _isInitialized = RxBool(false);
   late CameraController _cameraController;
   late List<CameraDescription> _cameras;
   late CameraImage cameraImage;
   bool get isInitialized => _isInitialized.value;
-  final RxList<Uint8List> _imageList = RxList();
+  
   int _imageCount = 0; // to take count of the images in the stream
   RxString output = RxString("");
+  // final RxList<Uint8List> _imageList = RxList();
+  // List<Uint8List> get imageList => _imageList;
 
-  List<Uint8List> get imageList => _imageList;
   CameraController get cameraController => _cameraController;
 
-  Future<void> _initTensorFlow() async {
-    String? res = await Tflite.loadModel(
-        model: 'assets/model_unquant.tflite',
-        labels: 'assets/labels.txt',
-        isAsset: true);
-  }
+  // FlutterVision vision = FlutterVision();
+  // Future<void> loadYoloModel() async {
+  //   await vision.loadYoloModel(
+  //       labels: 'assets/labels.txt',
+  //       modelPath: 'assets/model_float32.tflite',
+  //       modelVersion: "yolov8",
+  //       numThreads: 2,
+  //       useGpu: true);
+  // }
+
+  // Future<void> startDetection() async {
+  //   setState(() {
+  //     isDetecting = true;
+  //   });
+  //   if (controller.value.isStreamingImages) {
+  //     return;
+  //   }
+  //   await controller.startImageStream((image) async {
+  //     if (isDetecting) {
+  //       cameraImage = image;
+  //       yoloOnFrame(image);
+  //     }
+  //   });
+  // }
+
+  // Future<void> stopDetection() async {
+  //   setState(() {
+  //     isDetecting = false;
+  //     yoloResults.clear();
+  //   });
+  // }
+  
 
   Future<void> _initCamera() async {
     _cameras = await availableCameras();
@@ -34,12 +58,13 @@ class ScanController extends GetxController {
         // cameraImage = image;
         // print(DateTime.now().millisecondsSinceEpoch);
         _imageCount++;
-        if (_imageCount % 10 == 0) {
+        if (_imageCount % 20 == 0) {
           _imageCount = 0;
-          objectRecognition(image);
+          // objectRecognition(image);
         }
+        update();
       });
-      _isInitialized.refresh(); // addition
+      // _isInitialized.refresh(); // addition
     }).catchError((Object e) {
       if (e is CameraException) {
         switch (e.code) {
@@ -54,38 +79,42 @@ class ScanController extends GetxController {
     });
   }
 
-  Future<void> objectRecognition(CameraImage cameraImage) async {
-    var recognitions = await Tflite.runModelOnFrame(
-        bytesList: cameraImage.planes.map((plane) {
-          return plane.bytes;
-        }).toList(), // required
-        imageHeight: cameraImage.height,
-        imageWidth: cameraImage.width,
-        imageMean: 127.5, // defaults to 127.5
-        imageStd: 127.5, // defaults to 127.5
-        rotation: 90, // defaults to 90, Android only
-        numResults: 2, // defaults to 5
-        threshold: 0.1, // defaults to 0.1
-        asynch: true // defaults to true
-        );
-    recognitions!.forEach((element) {
-      output = RxString(element['label']);
-    });
-    print(output);
-  }
+  // Future<void> objectRecognition(CameraImage cameraImage) async {
+  //   try {
+  //     var recognitions = await vision.yoloOnFrame(
+  //         bytesList: cameraImage.planes.map((plane) {
+  //           return plane.bytes;
+  //         }).toList(), // required
+          
+  //         imageHeight: cameraImage.height,
+  //         imageWidth: cameraImage.width);
+
+  //     if (recognitions != null) {
+  //       print("Output Shape: ${recognitions[0]["shape"]}");
+  //       for (var element in recognitions) {
+  //         output = RxString(element["tag"]);
+  //       }
+  //       // log("$recognitions");
+  //     }
+  //   } catch (e, stackTrace) {
+  //     print("Exception occurred: $e");
+  //     print("Stack trace: $stackTrace");
+  //     // Handle the exception gracefully
+  //     Get.snackbar("Error", "Running model has failed");
+  //   }
+  // }
 
   @override
   void dispose() {
     _isInitialized.value = false;
     _cameraController.dispose();
-    Tflite.close();
     super.dispose();
   }
 
   @override
   void onInit() {
-    _initCamera();
-    _initTensorFlow();
+    // _initCamera();
+    // _initTensorFlow();
     super.onInit();
   }
 

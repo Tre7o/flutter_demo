@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/presentation/widgets/list_widgets/list_item/language_item.dart';
 import 'package:get/get.dart';
 
 import '../list_item/about_item.dart';
@@ -8,12 +7,14 @@ import '../list_item/help_item.dart';
 class SupportBlock extends StatelessWidget {
   const SupportBlock({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
-      child: Container(
-        height: Get.height * 0.2,
+      child: SizedBox(
+        height: Get.height * 0.21,
         width: Get.width,
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,

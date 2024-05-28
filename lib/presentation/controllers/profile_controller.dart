@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_demo/application/services/auth.dart';
 import 'package:flutter_demo/data/repos/user_repository.dart';
 import 'package:get/get.dart';
@@ -9,8 +10,10 @@ class ProfileController extends GetxController {
 
   final _authService = Get.put(AuthService());
   final _userRepo = Get.put(UserRepository());
+  var status = '';
+  var languagePref = '';
 
-  // get user emai; and pass it to the UserRepository to fetch user record
+  // get user email; and pass it to the UserRepository to fetch user record
   getUserData() {
     final email = _authService.user.value?.email;
     if (email != null) {
@@ -19,6 +22,22 @@ class ProfileController extends GetxController {
       return _userRepo.getUserDetails(email);
     } else {
       Get.snackbar('Error', 'Log in to continue');
+    }
+  }
+
+  Future<String?> updateUserDetails(UserModel user) async {
+    String? error = await _authService.updateUserEmailAndPassword(
+        user.email, user.password);
+    print('updateUserDetails says $error');
+    if (error != null) {
+      Get.showSnackbar(GetSnackBar(
+        message: error.toString(),
+        duration: const Duration(seconds: 1),
+        margin: const EdgeInsets.all(8),
+      ));
+      return error;
+    } else {
+      return null;
     }
   }
 

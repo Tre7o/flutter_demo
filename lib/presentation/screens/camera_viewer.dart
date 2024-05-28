@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/widgets/capture_button.dart';
 import 'package:get/get.dart';
 import '../../application/services/scan_controller.dart';
+import '../widgets/loading.dart';
 
 
 class CameraViewer extends StatelessWidget {
@@ -12,12 +13,12 @@ class CameraViewer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetX<ScanController>(builder: (controller) {
       if (!controller.isInitialized) {
-        return Container();
+        return const Loading();
       }
       return Column(
         children: [
           SizedBox(
-              height: Get.height - 300,
+              height: Get.height - 260,
               width: Get.width,
               child: CameraPreview(
                 controller.cameraController,
@@ -31,7 +32,7 @@ class CameraViewer extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(width: 2, color: Colors.black)
                 ),
-                child: Obx(() => Text(controller.output.value)) 
+                // child: Obx(() => Text(controller.output.value)) 
             ),
           )
         ],

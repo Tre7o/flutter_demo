@@ -9,7 +9,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
+      appBar: const MyAppBar(
         titleText: 'Sign Up',
         leadingWidget: BackButton(),
       ),
@@ -18,14 +18,14 @@ class SignUpScreen extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               height: 60,
-              child: Text(
+              child: const Text(
                 'Create an account',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             ),
-            SignUpForm()
+            const SignUpForm()
           ],
         ),
       ),

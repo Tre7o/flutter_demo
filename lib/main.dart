@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo/application/services/auth.dart';
-import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
 import 'package:flutter_demo/presentation/pages/camera_page.dart';
 import 'package:flutter_demo/presentation/pages/profile/edit_profile.dart';
 import 'package:flutter_demo/presentation/pages/settings/language/language_page.dart';
@@ -11,10 +10,10 @@ import 'package:flutter_demo/presentation/pages/on_boarding.dart';
 import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/about/about_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/help_page.dart';
+import 'package:flutter_demo/speech_page.dart';
 import 'package:get/get.dart';
 
 import 'firebase_options.dart';
-import 'global_bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,17 +34,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: OnBoardingScreen(),
+      home: const OnBoardingScreen(),
       title: "Sign Talk",
-      initialBinding: GlobalBindings(),
+      // initialBinding: GlobalBindings(),
       routes: {
-        '/home': (context) => HomeScreen(),
-        '/translator': (context) => CameraPage(),
-        '/profile': (context) => ProfilePage(),
-        '/language': (context) => LanguagePage(),
-        '/about': (context) => AboutPage(),
-        '/help': (context) => HelpPage(),
-        '/editprofile': (context) => EditProfile(),
+        '/home': (context) => const HomeScreen(),
+        '/translator': (context) => const CameraPage(),
+        '/profile': (context) => const ProfilePage(),
+        '/language': (context) => const LanguagePage(),
+        '/about': (context) => const AboutPage(),
+        '/help': (context) => const HelpPage(),
+        '/editprofile': (context) => const EditProfile(),
+        '/speech': (context) => const SpeechPage()
       },
     );
   }

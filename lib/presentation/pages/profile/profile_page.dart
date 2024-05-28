@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: MainBar(
         titleText: 'Profile',
-        leadingWidget: BackButton(
+        leadingWidget: const BackButton(
           color: Colors.black,
         ),
       ),
@@ -50,17 +50,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 UserModel userData = snapshot.data as UserModel;
                 print(userData.id);
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
                   child: Column(
                     children: [
                       Center(
                         child: CircleAvatar(
-                          child: Text(
-                            getInitials(userData.name),
-                            style: TextStyle(fontSize: 25),
-                          ),
                           backgroundColor: Colors.blue,
                           radius: 50,
+                          child: Text(
+                            getInitials(userData.name),
+                            style: const TextStyle(fontSize: 25),
+                          ),
                         ),
                       ),
                       Container(
@@ -75,10 +75,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       PhoneListItem(
                         userNumber: userData.phoneNo,
                       ),
-                      StatusBlock(),
+                      const StatusBlock(),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/editprofile');
+                          Navigator.pushReplacementNamed(context, '/editprofile');
                         },
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
@@ -97,12 +97,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Text(snapshot.error.toString()),
                 );
               } else {
-                return Center(
+                return const Center(
                   child: Text('Something went wrong'),
                 );
               }
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }

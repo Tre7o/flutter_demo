@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_demo/application/exceptions/auth_exceptions/sign_in_exception.dart';
 import 'package:flutter_demo/application/exceptions/auth_exceptions/sign_up_exception.dart';
+import 'package:flutter_demo/application/exceptions/auth_exceptions/update_exception.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_in_page.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
-import 'package:flutter_demo/presentation/pages/camera_page.dart';
 import 'package:flutter_demo/presentation/pages/main_page.dart';
 import 'package:flutter_demo/presentation/pages/on_boarding.dart';
 import 'package:get/get.dart';
@@ -26,15 +26,15 @@ class AuthService extends GetxController {
   // switch screen based on whether user is logged in or not
   _setInitialScreen(User? user) {
     user == null
-        ? Get.offAll(() => OnBoardingScreen())
-        : Get.offAll(() => HomeScreen());
+        ? Get.offAll(() => const OnBoardingScreen())
+        : Get.offAll(() => const HomeScreen());
   }
 
   void toggleScreens() {
     showSignInScreen = !showSignInScreen;
     showSignInScreen != true
-        ? Get.offAll(() => SignUpScreen())
-        : Get.offAll(() => SignInScreen());
+        ? Get.offAll(() => const SignUpScreen())
+        : Get.offAll(() => const SignInScreen());
   }
 
   Future<String?> registerWithEmailAndPassword(
@@ -43,8 +43,8 @@ class AuthService extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       user.value != null
-          ? Get.offAll(() => HomeScreen())
-          : Get.offAll(() => OnBoardingScreen());
+          ? Get.offAll(() => const HomeScreen())
+          : Get.offAll(() => const OnBoardingScreen());
     } on FirebaseAuthException catch (firebaseExp) {
       final ex = SignUpWithEmailAndPasswordFailure.code(firebaseExp.code);
       print('FIREBASE AUTH EXCEPTION - ${ex.message}');
@@ -62,8 +62,8 @@ class AuthService extends GetxController {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       user.value != null
-          ? Get.offAll(() => HomeScreen())
-          : Get.offAll(() => SignInScreen());
+          ? Get.offAll(() => const HomeScreen())
+          : Get.offAll(() => const SignInScreen());
     } on FirebaseAuthException catch (firebaseEx) {
       final ex = SignInWithEmailAndPasswordFailure.code(firebaseEx.code);
       print('signInWithEmailAndPassword says ${ex.message}');
@@ -71,6 +71,42 @@ class AuthService extends GetxController {
       return ex.message;
     } catch (_) {
       const exception = SignInWithEmailAndPasswordFailure();
+      print(exception.message);
+      return exception.message;
+    }
+    return null;
+  }
+
+  Future<String?> updateUserEmailAndPassword(
+      String email, String password) async {
+    try {
+      User? user = _auth.currentUser;
+
+      print("Passed email: $email");
+
+      print("Passed password: $password");
+
+      print("Current user email: ${user!.email}");
+
+      // Re-authenticate the user
+      await user.reauthenticateWithCredential(
+        EmailAuthProvider.credential(
+          email: user.email!,
+          password: password,
+        ),
+      );
+
+      if (!(email == user.email)) {
+        await user.updateEmail(email);
+      }
+      await user.updatePassword(password);
+    } on FirebaseAuthException catch (firebaseEx) {
+      final ex = UpdateFailure.code(firebaseEx.code);
+      print('UpdateFailure says ${ex.message}');
+      print('UpdateFailure says ${firebaseEx.code}');
+      return ex.message;
+    } catch (_) {
+      const exception = UpdateFailure();
       print(exception.message);
       return exception.message;
     }

@@ -9,11 +9,11 @@ class HelpPage extends StatelessWidget {
     return Scaffold(
       appBar: MainBar(
         titleText: 'Help',
-        leadingWidget: BackButton(
+        leadingWidget: const BackButton(
           color: Colors.black,
         ),
       ),
-      body: Column(
+      body: const Column(
         children: [
           
         ],

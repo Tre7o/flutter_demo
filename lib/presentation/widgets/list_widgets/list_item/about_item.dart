@@ -9,7 +9,7 @@ class AboutItem extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, '/about');
       },
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [

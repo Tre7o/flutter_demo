@@ -8,19 +8,19 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                Container(
-                  height: 500,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/onboarding.png'))),
-                ),
-                SizedBox(
-                  height: 200,
-                  child: Column(
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Container(
+                    height: 500,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/onboarding.png'))),
+                  ),
+                  const Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
                         'Welcome to Sign Talk',
@@ -28,7 +28,7 @@ class OnBoardingScreen extends StatelessWidget {
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(45.0),
+                        padding: EdgeInsets.all(45.0),
                         child: Text(
                           'Your one stop to all your sign language conversion needs, here to bridge the gap between the deaf and hearing community',
                           style: TextStyle(
@@ -37,27 +37,29 @@ class OnBoardingScreen extends StatelessWidget {
                         ),
                       )
                     ],
+              
                   ),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpScreen()));
-                  },
-                  child: Text(
-                    "Get Started",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black),
+                  OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpScreen()));
+                    },
+                    style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Colors.black, width: 1),
+                        minimumSize: const Size(300, 50)),
+                    child: const Text(
+                      "Get Started",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
                   ),
-                  style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.black, width: 1),
-                      minimumSize: Size(300, 50)),
-                )
-              ],
-            )
-          ],
+                  const SizedBox(height: 20,)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

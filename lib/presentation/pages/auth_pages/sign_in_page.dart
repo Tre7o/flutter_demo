@@ -9,7 +9,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(
+      appBar: const MyAppBar(
         titleText: 'Sign In',
       ),
       body: SingleChildScrollView(
@@ -17,11 +17,11 @@ class SignInScreen extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               height: 60,
-              child: Text('Log in to your account', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+              child: const Text('Log in to your account', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
             ),
-            SignInForm()
+            const SignInForm()
           ],
         ),
       ),
