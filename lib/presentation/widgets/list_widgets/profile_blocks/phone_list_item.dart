@@ -10,13 +10,13 @@ class PhoneListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 25, 0),
-      child: Container(
+      child: SizedBox(
         height: Get.height * 0.120,
         width: Get.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
               child: Text(
                 'Phone number',
@@ -25,14 +25,14 @@ class PhoneListItem extends StatelessWidget {
             ),
             Row(children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: Text(
                   userNumber!,
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                 ),
               ),
             ]),
-            Divider(
+            const Divider(
               color: Colors.black,
               thickness: 1,
               indent: 5,

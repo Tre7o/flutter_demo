@@ -9,25 +9,24 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: MainBar(
         titleText: 'About',
-        leadingWidget: BackButton(
+        leadingWidget: const BackButton(
           color: Colors.black,
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(10, 30, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
         child: Column(
           children: [
             Center(
               child: CircleAvatar(
-                child: Image.asset('assets/images/image.png'),
-                
                 radius: 50,
+                child: Image.asset('assets/images/image.png'),
               ),
             ),
             Container(
               alignment: Alignment.center,
               height: 50,
-              child: Text(
+              child: const Text(
                 'Version 1.0.0',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),

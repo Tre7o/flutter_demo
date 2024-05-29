@@ -7,7 +7,7 @@ import '../../../application/services/auth.dart';
 import '../../../utils/constants.dart';
 
 class SignUpForm extends StatefulWidget {
-  SignUpForm({super.key});
+  const SignUpForm({super.key});
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -25,17 +25,28 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Form(
           key: _formKey,
           child: Column(
             children: [
               TextFormField(
                 controller: controller.name,
-                decoration: textInputDecoration.copyWith(label: Text('Name')),
+                decoration: textInputDecoration.copyWith(label: const Text('Name')),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your name';
+                  }
+                  if (value == " ") {
+                    return 'Please enter your name';
+                  }
+                  if (value.length <= 2) {
+                    return 'Enter a name longer than 2 characters';
+                  }
+                  List<String> words = value.split(' ');
+                  // Check if the number of words is exactly two
+                  if (words.length != 2) {
+                    return 'Please enter only two names';
                   }
                   return null;
                 },
@@ -45,10 +56,13 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
               TextFormField(
                 controller: controller.email,
-                decoration: textInputDecoration.copyWith(label: Text('Email')),
+                decoration: textInputDecoration.copyWith(label: const Text('Email')),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter an email';
+                  }
+                  if (!value.isEmail) {
+                    return 'Email wrongly formatted';
                   }
                   return null;
                 },
@@ -60,7 +74,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 controller: controller.password,
                 obscureText: true,
                 decoration:
-                    textInputDecoration.copyWith(label: Text('Password')),
+                    textInputDecoration.copyWith(label: const Text('Password')),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a password';
@@ -74,10 +88,16 @@ class _SignUpFormState extends State<SignUpForm> {
               TextFormField(
                 controller: controller.phoneNo,
                 decoration:
-                    textInputDecoration.copyWith(label: Text('Phone Number')),
+                    textInputDecoration.copyWith(label: const Text('Phone Number')),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your phone number';
+                  }
+                  if (!value.isNumericOnly) {
+                    return 'Enter only numeric values(0-9)';
+                  }
+                  if (!(value.length == 10)) {
+                    return 'Enter 10 digits for the phone number';
                   }
                   return null;
                 },
@@ -89,10 +109,9 @@ class _SignUpFormState extends State<SignUpForm> {
 
               // }),
               showLoader
-                  ? CircularProgressIndicator()
+                  ? const CircularProgressIndicator()
                   : ElevatedButton(
                       onPressed: () async {
-                        
                         if (_formKey.currentState!.validate()) {
                           setState(() {
                             showLoader = true;
@@ -104,35 +123,34 @@ class _SignUpFormState extends State<SignUpForm> {
                               password: controller.password.text.trim(),
                               phoneNo: controller.phoneNo.text.trim());
 
-                          String? result =
-                              await SignUpController.signUpController.registerUser(
-                                  controller.email.text.trim(),
+                          String? result = await SignUpController
+                              .signUpController
+                              .registerUser(controller.email.text.trim(),
                                   controller.password.text.trim());
-                          print('Result from sign-up-form ${result.toString()}');
+                          print(
+                              'Result from sign-up-form ${result.toString()}');
                           // print(controller.email.text.trim());
                           // print(controller.password.text.trim());
 
                           if (result == null) {
                             SignUpController.signUpController
                                 .createDBUser(user);
-                            print('Result pass: ${result}');
-                            Get.showSnackbar(GetSnackBar(
+                            print('Result pass: $result');
+                            Get.showSnackbar(const GetSnackBar(
                               message: 'Account was created successfully',
                               duration: Duration(seconds: 1),
                               margin: EdgeInsets.all(8),
                             ));
                           } else {
-                            print('Result fail: ${result}');
+                            print('Result fail: $result');
                           }
-                          
                         }
                         setState(() {
                           showLoader = false;
                         });
                       },
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 150)),
+                      style:
+                          ElevatedButton.styleFrom(minimumSize: const Size(350, 55)),
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(
@@ -140,15 +158,15 @@ class _SignUpFormState extends State<SignUpForm> {
                       ),
                     ),
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   GestureDetector(
                       onTap: () {
                         AuthService.authService.toggleScreens();
                       },
-                      child: Text(
+                      child: const Text(
                         " Sign In!",
                         style: TextStyle(
                             decoration: TextDecoration.underline,

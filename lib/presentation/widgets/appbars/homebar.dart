@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import '../../../application/services/auth.dart';
 
 class HomeBar extends StatelessWidget implements PreferredSizeWidget {
-  HomeBar({super.key, required this.titleText, this.leadingWidget, this.titleWidget});
+  const HomeBar({super.key, required this.titleText, this.leadingWidget, this.titleWidget});
 
   final String titleText;
   final Widget? leadingWidget;
   final Widget? titleWidget;
 
-  var option = 1;
+  final int option = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,11 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
           child: PopupMenuButton(
-            child: Icon(Icons.menu, color: Colors.black,),
+            child: const Icon(Icons.menu, color: Colors.black,),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Row(
+                value: option,
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -33,7 +34,6 @@ class HomeBar extends StatelessWidget implements PreferredSizeWidget {
                     Icon(Icons.logout, color: Colors.black),
                   ],
                 ),
-                value: option,
               )
             ],
             onSelected: (value){

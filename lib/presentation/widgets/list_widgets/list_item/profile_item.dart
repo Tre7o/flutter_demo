@@ -9,7 +9,7 @@ class ProfileItem extends StatelessWidget {
       onTap: (){
         Navigator.pushNamed(context, '/profile');
       },
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [

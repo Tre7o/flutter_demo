@@ -27,99 +27,103 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeBar(titleText: 'SIGN TALK'),
-      body: Center(
-        child: Column(
-          children: [
-            FutureBuilder(
-                future: controller.getUserData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    // if data is completely fetched
-                    if (snapshot.hasData) {
-                      // if snapshot has data
-                      UserModel userData = snapshot.data as UserModel;
+      appBar: const HomeBar(titleText: 'SIGN TALK'),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              FutureBuilder(
+                  future: controller.getUserData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      // if data is completely fetched
+                      if (snapshot.hasData) {
+                        // if snapshot has data
+                        UserModel userData = snapshot.data as UserModel;
+                        return Container(
+                          width: 350,
+                          height: 50,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                              'Hello, ${getFirstUserName(userData.name)}',
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w100)),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      } else {
+                        return const Center(
+                          child: Text('Something went wrong'),
+                        );
+                      }
+                    } else {
                       return Container(
                         width: 350,
                         height: 50,
                         alignment: Alignment.centerLeft,
-                        child: Text('Hello, ${getFirstUserName(userData.name)}',                       
+                        child: const Text('Hello, there',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w100)),
                       );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text(snapshot.error.toString()),
-                      );
-                    } else {
-                      return Center(
-                        child: Text('Something went wrong'),
-                      );
                     }
-                  } else {
-                    return Container(
-                      width: 350,
-                      height: 50,
-                      alignment: Alignment.centerLeft,
-                      child: Text('Hello, there',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w100)),
-                    );
-                  }
-                }),
-            Container(
-              height: 220,
-              width: 350,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                image: DecorationImage(
-                    image: AssetImage('assets/images/main_image.png'),
-                    fit: BoxFit.cover),
-                // color: Colors.grey[400],
+                  }),
+              Container(
+                height: 220,
+                width: 350,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/main_image.png'),
+                      fit: BoxFit.cover),
+                  // color: Colors.grey[400],
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            Container(
-                width: 250,
-                height: 250,
-                child: Center(
-                  child: Text(
-                    'What do you want to do today?',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 45, color: Colors.black),
-                  ),
-                )),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/translator');
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black, minimumSize: Size(300, 50)),
-              child: const Text(
-                "Translate",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              const SizedBox(height: 5),
+              const SizedBox(
+                  width: 300,
+                  height: 250,
+                  child: Center(
+                    child: Text(
+                      'What do you want to do today?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 45, color: Colors.black),
+                    ),
+                  )),
+              const SizedBox(height: 5),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/translator');
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black, minimumSize: const Size(300, 50)),
+                child: const Text(
+                  "Translate",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            OutlinedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/translator');
-              },
-              style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  side: BorderSide(color: Colors.black, width: 1),
-                  minimumSize: Size(300, 50)),
-              child: const Text(
-                "Learn",
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              const SizedBox(height: 20),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/speech');
+                },
+                style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(color: Colors.black, width: 1),
+                    minimumSize: const Size(300, 50)),
+                child: const Text(
+                  "Learn",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/application/services/auth.dart';
 
 class MenuItem extends StatelessWidget {
   const MenuItem({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuItem(
+    return const PopupMenuItem(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

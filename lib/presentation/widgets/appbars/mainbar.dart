@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../application/services/auth.dart';
 import '../../pages/main_page.dart';
 
+// ignore: must_be_immutable
 class MainBar extends StatelessWidget implements PreferredSizeWidget {
   MainBar(
       {super.key,
@@ -34,13 +35,14 @@ class MainBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 0, 12, 0),
           child: PopupMenuButton(
-            child: Icon(
+            child: const Icon(
               Icons.menu,
               color: Colors.black,
             ),
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Row(
+                value: firstOption,
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -50,10 +52,10 @@ class MainBar extends StatelessWidget implements PreferredSizeWidget {
                     Icon(Icons.home_rounded, color: Colors.black),
                   ],
                 ),
-                value: firstOption,
               ),
               PopupMenuItem(
-                child: Row(
+                value: secondOption,
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -63,12 +65,11 @@ class MainBar extends StatelessWidget implements PreferredSizeWidget {
                     Icon(Icons.logout, color: Colors.black),
                   ],
                 ),
-                value: secondOption,
               ),
             ],
             onSelected: (value){
               if(value == 1){
-                Get.offAll(() => HomeScreen());
+                Get.offAll(() => const HomeScreen());
               }else if(value == 2){
                 AuthService.authService.signOut();
               }

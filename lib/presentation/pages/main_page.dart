@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  final List<Widget> pages = [HomePage(), SettingsPage()];
+  final List<Widget> pages = [const HomePage(), const SettingsPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
               currentIndex: _selectedIndex,
               onTap: _navigateBottomBar,
               type: BottomNavigationBarType.fixed,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
-                    icon: const Icon(Icons.home),
+                    icon: Icon(Icons.home),
                     label: 'Home',
                     backgroundColor: Colors.black),
                 BottomNavigationBarItem(
-                    icon: const Icon(Icons.settings),
+                    icon: Icon(Icons.settings),
                     label: 'Settings',
                     backgroundColor: Colors.black)
               ]),

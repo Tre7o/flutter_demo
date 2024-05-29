@@ -22,13 +22,13 @@ class SignUpController extends GetxController {
     if (error != null) {
       Get.showSnackbar(GetSnackBar(
         message: error.toString(),
-        duration: Duration(seconds: 1),
-        margin: EdgeInsets.all(8),
+        duration: const Duration(seconds: 1),
+        margin: const EdgeInsets.all(8),
       ));
-    } else {
       return error;
+    } else {
+      return null;
     }
-    return null;
   }
 
   Future<void> createDBUser(UserModel user) async {

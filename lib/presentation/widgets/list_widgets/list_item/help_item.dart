@@ -9,7 +9,7 @@ class HelpItem extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, '/help');
       },
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [

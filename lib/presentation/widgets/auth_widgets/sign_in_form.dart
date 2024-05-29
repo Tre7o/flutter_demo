@@ -7,7 +7,7 @@ import '../../controllers/auth_controllers/sign_in_controller.dart';
 
 class SignInForm extends StatefulWidget {
   
-  SignInForm({super.key});
+  const SignInForm({super.key});
 
   @override
   State<SignInForm> createState() => _SignInFormState();
@@ -25,17 +25,20 @@ class _SignInFormState extends State<SignInForm> {
   Widget build(BuildContext context) {
     
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
       child: Form(
           key: _formKey,
           child: Column(
             children: [
               TextFormField(
                 controller: controller.email,
-                decoration: textInputDecoration.copyWith(label: Text('Email')),
+                decoration: textInputDecoration.copyWith(label: const Text('Email')),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
+                  }
+                  if (!value.isEmail) {
+                    return 'Email wrongly formatted';
                   }
                   return null;
                 },
@@ -47,7 +50,7 @@ class _SignInFormState extends State<SignInForm> {
                 controller: controller.password,
                 obscureText: true,
                 decoration:
-                    textInputDecoration.copyWith(label: Text('Password')),
+                    textInputDecoration.copyWith(label: const Text('Password')),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a password';
@@ -61,7 +64,7 @@ class _SignInFormState extends State<SignInForm> {
               const SizedBox(
                 height: 390,
               ),
-              showLoader? CircularProgressIndicator() : ElevatedButton(
+              showLoader? const CircularProgressIndicator() : ElevatedButton(
                 onPressed: () async {
                                   
                   if (_formKey.currentState!.validate()) {
@@ -79,24 +82,23 @@ class _SignInFormState extends State<SignInForm> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 150)),
-                child: const Text(
-                  "Sign In",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
+                  minimumSize: const Size(350, 55)),
+                  child: const Text(
+                    "Sign In",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
               ),
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Don't have an account?"),
+                  const Text("Don't have an account?"),
                   GestureDetector(
                       onTap: () {
                         AuthService.authService.toggleScreens();
                       },
-                      child: Text(
+                      child: const Text(
                         " Sign Up!",
                         style: TextStyle(
                             decoration: TextDecoration.underline,
