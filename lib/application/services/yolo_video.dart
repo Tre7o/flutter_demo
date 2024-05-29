@@ -112,7 +112,7 @@ class _YoloVideoState extends State<YoloVideo> {
                 color: Colors.white,
               ),
               child: Text(
-                "recognizedLabel",
+                recognizedLabel,
               ),
             ),
           ),
