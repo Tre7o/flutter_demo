@@ -8,7 +8,7 @@
     </queries>
 
     <application
-        android:label="flutter_demo"
+        android:label="Sign Talk"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

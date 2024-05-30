@@ -77,29 +77,19 @@ class AuthService extends GetxController {
     return null;
   }
 
-  Future<String?> updateUserEmailAndPassword(
+  Future<String?> reauthenticateUser(
       String email, String password) async {
     try {
       User? user = _auth.currentUser;
 
-      print("Passed email: $email");
-
-      print("Passed password: $password");
-
-      print("Current user email: ${user!.email}");
-
       // Re-authenticate the user
-      await user.reauthenticateWithCredential(
+      await user!.reauthenticateWithCredential(
         EmailAuthProvider.credential(
           email: user.email!,
           password: password,
         ),
       );
-
-      if (!(email == user.email)) {
-        await user.updateEmail(email);
-      }
-      await user.updatePassword(password);
+      
     } on FirebaseAuthException catch (firebaseEx) {
       final ex = UpdateFailure.code(firebaseEx.code);
       print('UpdateFailure says ${ex.message}');

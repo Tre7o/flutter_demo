@@ -26,7 +26,7 @@ class ProfileController extends GetxController {
   }
 
   Future<String?> updateUserDetails(UserModel user) async {
-    String? error = await _authService.updateUserEmailAndPassword(
+    String? error = await _authService.reauthenticateUser(
         user.email, user.password);
     print('updateUserDetails says $error');
     if (error != null) {

@@ -9,9 +9,7 @@ class AccountBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
-      child: SizedBox(
-        height: Get.height * 0.125,
-        width: Get.width,
+      child: Expanded(
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

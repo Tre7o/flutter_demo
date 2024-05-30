@@ -238,27 +238,27 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                       status: controller.status,
                                       languagePref: controller.languagePref);
 
-                                  // String? result =
-                                  //     await controller.updateUserDetails(user);
-                                  // print(
-                                  //     'Result from edit-form ${result.toString()}');
+                                  String? result =
+                                      await controller.updateUserDetails(user);
+                                  print(
+                                      'Result from edit-form ${result.toString()}');
 
-                                  // if (result == null) {
-                                  //   await controller.updateRecord(user);
-                                  //   Get.off(() => ProfilePage());
-                                  // } else {
-                                  //   print('Result fail: ${result}');
-                                  // }
+                                  if (result == null) {
+                                    await controller.updateRecord(user);
+                                    Get.off(() => ProfilePage());
+                                  } else {
+                                    print('Result fail: ${result}');
+                                  }
 
-                                  await controller.updateRecord(user);
-                                  Get.off(() => const ProfilePage());
+                                  // await controller.updateRecord(user);
+                                  // Get.off(() => const ProfilePage());
                                 } else {
                                   print("Form not validated");
                                 }
 
-                                // setState(() {
-                                //   showLoader = false;
-                                // });
+                                setState(() {
+                                  showLoader = false;
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(500, 55),
