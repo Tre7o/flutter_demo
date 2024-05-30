@@ -36,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             const SupportBlock(),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),

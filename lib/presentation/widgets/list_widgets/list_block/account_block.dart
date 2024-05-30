@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/list_item/profile_item.dart';
-import 'package:get/get.dart';
 
 class AccountBlock extends StatelessWidget {
   const AccountBlock({super.key});

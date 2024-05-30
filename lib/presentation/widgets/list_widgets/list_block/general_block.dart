@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/widgets/list_widgets/list_item/language_item.dart';
-import 'package:get/get.dart';
 
 class GeneralBlock extends StatelessWidget {
   const GeneralBlock({super.key});

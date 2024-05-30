@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../list_item/about_item.dart';
 import '../list_item/help_item.dart';
 
