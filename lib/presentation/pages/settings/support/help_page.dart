@@ -15,9 +15,12 @@ class HelpPage extends StatelessWidget {
       ),
       body: const Column(
         children: [
-          
+          // How to use the translator
+          // - Stay within 3 feet of the hand
+          // - Make sure there's ample lighting, natural lighting breeds better results
+          // - Press the record button in the middle to start recording
         ],
       ),
-    );
+    ); 
   }
 }

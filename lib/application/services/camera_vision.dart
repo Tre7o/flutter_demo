@@ -233,8 +233,11 @@ class _CameraVisionState extends State<CameraVision> {
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.black)),
-            child: recognizedLabel.isEmpty ? const Text("Text will be displayed here") : Text(recognizedLabel)),
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10)),
+            child: recognizedLabel.isEmpty
+                ? const Text("Text will be displayed here")
+                : Text(recognizedLabel)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(

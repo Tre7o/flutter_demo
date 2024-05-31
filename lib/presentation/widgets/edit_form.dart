@@ -69,32 +69,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // TextFormField(
-                      //   controller: email,
-                      //   decoration:
-                      //       textInputDecoration.copyWith(label: Text('Email')),
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return 'Please enter an email';
-                      //     }
-                      //     if (!value.isEmail) {
-                      //       return 'Email wrongly formatted';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      // TextFormField(
-                      //   controller: password,
-                      //   obscureText: true,
-                      //   decoration: textInputDecoration.copyWith(
-                      //       label: Text('Password')),
-                      //   validator: (value) {
-                      //     return null;
-                      //   },
-                      // ),
                       TextFormField(
                         controller: phoneNo,
                         decoration: textInputDecoration.copyWith(

@@ -9,9 +9,11 @@ class SignInWithEmailAndPasswordFailure {
 
       case 'invalid-email': return const SignInWithEmailAndPasswordFailure('Email is not valid or badly formatted.');
 
-      case 'invalid-credential': return const SignInWithEmailAndPasswordFailure('Password does not match');
+      case 'invalid-credential': return const SignInWithEmailAndPasswordFailure('Password is incorrect');
 
       case 'user-not-found': return const SignInWithEmailAndPasswordFailure('Email or password do not match');
+
+      case 'email-already-in-use': return const SignInWithEmailAndPasswordFailure('Email is already in use');
 
       case 'too-many-requests': return const SignInWithEmailAndPasswordFailure('Too many requests');
 
