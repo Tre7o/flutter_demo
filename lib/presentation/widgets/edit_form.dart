@@ -211,7 +211,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                       phoneNo: phoneNo.text.trim(),
                                       status: controller.status,
                                       languagePref: controller.languagePref);
-
+                                  
+                                  // perform some error handling
                                   String? result =
                                       await controller.updateUserDetails(user);
                                   print(

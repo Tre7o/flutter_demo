@@ -13,7 +13,7 @@ class ProfileController extends GetxController {
   var status = '';
   var languagePref = '';
 
-  // get user email; and pass it to the UserRepository to fetch user record
+  // get user email and pass it to the UserRepository to fetch user record
   getUserData() {
     final email = _authService.user.value?.email;
     if (email != null) {
@@ -25,6 +25,7 @@ class ProfileController extends GetxController {
     }
   }
 
+  // leveraging auth exceptions to handle errors
   Future<String?> updateUserDetails(UserModel user) async {
     String? error = await _authService.reauthenticateUser(
         user.email, user.password);

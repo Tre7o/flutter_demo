@@ -15,6 +15,7 @@ class SignUpController extends GetxController {
 
   final userRepo = Get.put(UserRepository());
 
+  // registering a user in firebase auth
   Future<String?> registerUser(String email, String password) async {
     String? error = await AuthService.authService
         .registerWithEmailAndPassword(email, password);
@@ -31,6 +32,7 @@ class SignUpController extends GetxController {
     }
   }
 
+  // storing the user in the database
   Future<void> createDBUser(UserModel user) async {
     await userRepo.createUser(user);
   }
