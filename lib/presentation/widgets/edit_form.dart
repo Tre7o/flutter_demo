@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/domain/models/user_model.dart';
 import 'package:flutter_demo/presentation/controllers/profile_controller.dart';
@@ -18,8 +21,42 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
   final _formKEY = GlobalKey<FormState>();
   // this _formKEY is used to identify our form
-
+  late StreamSubscription<ConnectivityResult> _subscription;
   bool showLoader = false;
+  bool isConnected = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _subscription =
+        Connectivity().onConnectivityChanged.listen(_updateConnectionStatus);
+    _checkInitialConnectivity();
+  }
+
+  Future<void> _checkInitialConnectivity() async {
+    try {
+      final connectivityResult = await (Connectivity().checkConnectivity());
+      _updateConnectionStatus(connectivityResult);
+    } on Exception catch (e) {
+      // TODO
+      print("Error: $e");
+    }
+  }
+
+  void _updateConnectionStatus(ConnectivityResult result) {
+    setState(() {
+      isConnected = result != ConnectivityResult.none;
+    });
+  }
+
+  void _showNoConnectionSnackBar() {
+    Get.showSnackbar(GetSnackBar(
+      message: "This action requires an active internet connection",
+      duration: const Duration(seconds: 1),
+      margin: const EdgeInsets.all(8),
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +83,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     children: [
                       TextFormField(
                         controller: name,
-                        decoration:
-                            textInputDecoration.copyWith(label: const Text('Name')),
+                        decoration: textInputDecoration.copyWith(
+                            label: const Text('Name')),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your name';
@@ -95,7 +132,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
                           Expanded(
                             child: GestureDetector(
                               onTap: () {
-                                Navigator.pushReplacementNamed(context, "/profile");
+                                Navigator.pushReplacementNamed(
+                                    context, "/profile");
                               },
                               child: Container(
                                 alignment: Alignment.topLeft,
@@ -203,6 +241,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                   setState(() {
                                     showLoader = true;
                                   });
+
                                   final user = UserModel(
                                       id: userData.id,
                                       name: name.text.trim(),
@@ -211,29 +250,21 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                       phoneNo: phoneNo.text.trim(),
                                       status: controller.status,
                                       languagePref: controller.languagePref);
-                                  
-                                  // perform some error handling
-                                  String? result =
-                                      await controller.updateUserDetails(user);
-                                  print(
-                                      'Result from edit-form ${result.toString()}');
 
-                                  if (result == null) {
+                                  // check whether there's an internet connection
+                                  if (isConnected) {
                                     await controller.updateRecord(user);
-                                    Get.off(() => ProfilePage());
+                                    Get.off(() => const ProfilePage());
                                   } else {
-                                    print('Result fail: ${result}');
+                                    _showNoConnectionSnackBar();
                                   }
 
-                                  // await controller.updateRecord(user);
-                                  // Get.off(() => const ProfilePage());
+                                  setState(() {
+                                    showLoader = false;
+                                  });
                                 } else {
                                   print("Form not validated");
                                 }
-
-                                setState(() {
-                                  showLoader = false;
-                                });
                               },
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(500, 55),

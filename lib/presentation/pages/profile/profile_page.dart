@@ -20,7 +20,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   String getInitials(String name) {
     final String initials;
-    if (name.contains('')) {
+
+    List<String> words = name.split(' ');
+
+    if (words.length > 1) {
       final splitted = name.split(' ');
       final firstInitial = splitted[0].substring(0, 1);
       final lastInitial = splitted[1].substring(0, 1);
