@@ -37,6 +37,7 @@ class _YoloVideoState extends State<YoloVideo> {
     init();
   }
 
+  // initialize camera
   init() async {
     cameras = await availableCameras();
     controller = CameraController(cameras[0], ResolutionPreset.max);
@@ -44,6 +45,7 @@ class _YoloVideoState extends State<YoloVideo> {
       if (!mounted) {
         return;
       } else {
+        // load model
         loadModel().then((value) {
           setState(() {
             isLoaded = true;
@@ -55,6 +57,7 @@ class _YoloVideoState extends State<YoloVideo> {
     });
   }
 
+  // initialize flutter text-to-speech service
   void initTTS() {
     _flutterTts.getVoices.then((data) {
       try {
@@ -82,6 +85,97 @@ class _YoloVideoState extends State<YoloVideo> {
     Wakelock.disable();
     controller.dispose();
     super.dispose();
+  }
+
+  // loading model type and labels
+  Future<void> loadModel() async {
+    try {
+      await vision.loadYoloModel(
+          labels: 'assets/labels.txt',
+          modelPath: 'assets/sign_model.tflite',
+          modelVersion: "yolov8",
+          numThreads: 2,
+          useGpu: false);
+      setState(() {
+        isLoaded = true;
+      });
+    } on Exception catch (e) {
+      // TODO
+      e.printError();
+    }
+  }
+
+  // perform gesture detection
+  Future<void> objectDetection(CameraImage cameraImage) async {
+    final result = await vision.yoloOnFrame(
+        bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
+        imageHeight: cameraImage.height,
+        imageWidth: cameraImage.width,
+        iouThreshold: 0.4,
+        confThreshold: 0.4,
+        classThreshold: 0.5);
+    if (result.isNotEmpty) {
+      setState(() {
+        yoloResults = result;
+        recognizedLabel = yoloResults[0]['tag'];
+      });
+    }
+  }
+
+  // start detection when record button is pressed
+  Future<void> startDetection() async {
+    setState(() {
+      isDetecting = true;
+    });
+    if (controller.value.isStreamingImages) {
+      return;
+    }
+    await controller.startImageStream((image) async {
+      if (isDetecting) {
+        cameraImage = image;
+        objectDetection(image);
+      }
+    });
+  }
+
+  // stop detection when record button is pressed
+  Future<void> stopDetection() async {
+    setState(() {
+      isDetecting = false;
+      yoloResults.clear();
+    });
+  }
+
+  // draw bounding boxes, and display classes and confidence levels
+  List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
+    if (yoloResults.isEmpty) return [];
+    double factorX = screen.width / (cameraImage?.height ?? 1);
+    double factorY = screen.height / (cameraImage?.width ?? 1);
+
+    Color colorPick = const Color.fromARGB(255, 50, 233, 30);
+
+    return yoloResults.map((result) {
+      return Positioned(
+        left: result["box"][0] * factorX,
+        top: result["box"][1] * factorY,
+        width: (result["box"][2] - result["box"][0]) * factorX,
+        height: (result["box"][3] - result["box"][1]) * factorY,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+            border: Border.all(color: Colors.pink, width: 2.0),
+          ),
+          child: Text(
+            "${result['tag']} ${(result['box'][4] * 100).toStringAsFixed(0)}%",
+            style: TextStyle(
+              background: Paint()..color = colorPick,
+              color: Colors.white,
+              fontSize: 18.0,
+            ),
+          ),
+        ),
+      );
+    }).toList();
   }
 
   @override
@@ -173,91 +267,5 @@ class _YoloVideoState extends State<YoloVideo> {
         )
       ],
     );
-  }
-
-  Future<void> loadModel() async {
-    try {
-      await vision.loadYoloModel(
-          labels: 'assets/labels.txt',
-          modelPath: 'assets/sign_model.tflite',
-          modelVersion: "yolov8",
-          numThreads: 2,
-          useGpu: false);
-      setState(() {
-        isLoaded = true;
-      });
-    } on Exception catch (e) {
-      // TODO
-      e.printError();
-    }
-  }
-
-  Future<void> objectDetection(CameraImage cameraImage) async {
-    final result = await vision.yoloOnFrame(
-        bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
-        imageHeight: cameraImage.height,
-        imageWidth: cameraImage.width,
-        iouThreshold: 0.4,
-        confThreshold: 0.4,
-        classThreshold: 0.5);
-    if (result.isNotEmpty) {
-      setState(() {
-        yoloResults = result;
-        recognizedLabel = yoloResults[0]['tag'];
-      });
-    }
-  }
-
-  Future<void> startDetection() async {
-    setState(() {
-      isDetecting = true;
-    });
-    if (controller.value.isStreamingImages) {
-      return;
-    }
-    await controller.startImageStream((image) async {
-      if (isDetecting) {
-        cameraImage = image;
-        objectDetection(image);
-      }
-    });
-  }
-
-  Future<void> stopDetection() async {
-    setState(() {
-      isDetecting = false;
-      yoloResults.clear();
-    });
-  }
-
-  List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
-    if (yoloResults.isEmpty) return [];
-    double factorX = screen.width / (cameraImage?.height ?? 1);
-    double factorY = screen.height / (cameraImage?.width ?? 1);
-
-    Color colorPick = const Color.fromARGB(255, 50, 233, 30);
-
-    return yoloResults.map((result) {
-      return Positioned(
-        left: result["box"][0] * factorX,
-        top: result["box"][1] * factorY,
-        width: (result["box"][2] - result["box"][0]) * factorX,
-        height: (result["box"][3] - result["box"][1]) * factorY,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            border: Border.all(color: Colors.pink, width: 2.0),
-          ),
-          child: Text(
-            "${result['tag']} ${(result['box'][4] * 100).toStringAsFixed(0)}%",
-            style: TextStyle(
-              background: Paint()..color = colorPick,
-              color: Colors.white,
-              fontSize: 18.0,
-            ),
-          ),
-        ),
-      );
-    }).toList();
   }
 }
