@@ -30,6 +30,7 @@ class AuthService extends GetxController {
         : Get.offAll(() => const HomeScreen());
   }
 
+  // switch between sign-in and sign-up screen
   void toggleScreens() {
     showSignInScreen = !showSignInScreen;
     showSignInScreen != true
@@ -37,6 +38,7 @@ class AuthService extends GetxController {
         : Get.offAll(() => const SignInScreen());
   }
 
+  // register a user in firebase auth
   Future<String?> registerWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -57,6 +59,7 @@ class AuthService extends GetxController {
     return null;
   }
 
+  // signing in a user
   Future<String?> signInWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -77,29 +80,18 @@ class AuthService extends GetxController {
     return null;
   }
 
-  Future<String?> updateUserEmailAndPassword(
-      String email, String password) async {
+  // perform error handling during user data update
+  Future<String?> reauthenticateUser(String email, String password) async {
     try {
       User? user = _auth.currentUser;
 
-      print("Passed email: $email");
-
-      print("Passed password: $password");
-
-      print("Current user email: ${user!.email}");
-
       // Re-authenticate the user
-      await user.reauthenticateWithCredential(
+      await user!.reauthenticateWithCredential(
         EmailAuthProvider.credential(
           email: user.email!,
           password: password,
         ),
       );
-
-      if (!(email == user.email)) {
-        await user.updateEmail(email);
-      }
-      await user.updatePassword(password);
     } on FirebaseAuthException catch (firebaseEx) {
       final ex = UpdateFailure.code(firebaseEx.code);
       print('UpdateFailure says ${ex.message}');

@@ -78,11 +78,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       const StatusBlock(),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/editprofile');
+                          Navigator.pushReplacementNamed(
+                              context, '/editprofile');
                         },
                         style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 150)),
+                            minimumSize: const Size(300, 50)),
                         child: const Text(
                           "Edit Profile",
                           style: TextStyle(

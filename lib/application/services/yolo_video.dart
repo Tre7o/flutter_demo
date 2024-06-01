@@ -100,21 +100,23 @@ class _YoloVideoState extends State<YoloVideo> {
           ),
         ),
         ...displayBoxesAroundRecognizedObjects(size),
-        Align(
-          alignment: Alignment.topCenter,
-          child: Positioned(
-            top: 10,
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-              ),
-              child: Text(
-                recognizedLabel,
-              ),
-            ),
+        Positioned(
+          top: 10,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  margin: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                  ),
+                  child: recognizedLabel.isEmpty
+                      ? const Text("Text will be displayed here")
+                      : Text(recognizedLabel)),
+            ],
           ),
         ),
         Positioned(

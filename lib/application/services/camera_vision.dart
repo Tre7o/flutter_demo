@@ -15,8 +15,6 @@ class CameraVision extends StatefulWidget {
 }
 
 class _CameraVisionState extends State<CameraVision> {
-  // final RxBool _isInitialized = RxBool(false);
-
   late CameraController _cameraController;
   late List<CameraDescription> _cameras;
   late CameraImage cameraImage;
@@ -38,10 +36,11 @@ class _CameraVisionState extends State<CameraVision> {
   @override
   void initState() {
     super.initState();
-    Wakelock.enable();
+    Wakelock.enable(); // keep screen awake as soon as this page is launched
     init();
   }
 
+  // initialize camera
   init() async {
     _cameras = await availableCameras();
     _cameraController = CameraController(_cameras[0], ResolutionPreset.max);
@@ -49,6 +48,7 @@ class _CameraVisionState extends State<CameraVision> {
       if (!mounted) {
         return;
       } else {
+        // load model
         loadModel().then((value) {
           setState(() {
             isLoaded = true;
@@ -60,6 +60,7 @@ class _CameraVisionState extends State<CameraVision> {
     });
   }
 
+  // loading model type and labels
   Future<void> loadModel() async {
     try {
       await vision.loadYoloModel(
@@ -72,11 +73,11 @@ class _CameraVisionState extends State<CameraVision> {
         isLoaded = true;
       });
     } on Exception catch (e) {
-      // TODO
       e.printError();
     }
   }
 
+  // perform gesture detection
   Future<void> objectDetection(CameraImage cameraImage) async {
     final result = await vision.yoloOnFrame(
         bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
@@ -94,6 +95,7 @@ class _CameraVisionState extends State<CameraVision> {
     }
   }
 
+  // start detection when record button is pressed
   Future<void> startDetection() async {
     setState(() {
       isDetecting = true;
@@ -109,6 +111,7 @@ class _CameraVisionState extends State<CameraVision> {
     });
   }
 
+  // stop detection when record button is pressed
   Future<void> stopDetection() async {
     setState(() {
       isDetecting = false;
@@ -116,6 +119,7 @@ class _CameraVisionState extends State<CameraVision> {
     });
   }
 
+  // draw bounding boxes, and display classes and confidence levels
   List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
     if (yoloResults.isEmpty) return [];
     double factorX = screen.width / (cameraImage.height);
@@ -154,6 +158,7 @@ class _CameraVisionState extends State<CameraVision> {
     super.dispose();
   }
 
+  // initialize flutter text-to-speech service
   void initTTS() {
     _flutterTts.getVoices.then((data) {
       try {
@@ -233,8 +238,11 @@ class _CameraVisionState extends State<CameraVision> {
             margin: const EdgeInsets.all(20),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.black)),
-            child: Text(recognizedLabel)),
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10)),
+            child: recognizedLabel.isEmpty
+                ? const Text("Text will be displayed here")
+                : Text(recognizedLabel)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(

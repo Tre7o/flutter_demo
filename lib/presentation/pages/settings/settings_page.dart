@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/application/services/auth.dart';
 import 'package:flutter_demo/presentation/widgets/appbars/mainbar.dart';
-import 'package:flutter_demo/presentation/widgets/list_widgets/list_block/account_block.dart';
-import 'package:flutter_demo/presentation/widgets/list_widgets/list_block/general_block.dart';
-import 'package:flutter_demo/presentation/widgets/list_widgets/list_block/support_block.dart';
+import '../../widgets/list_widgets/list_item/about_item.dart';
+import '../../widgets/list_widgets/list_item/help_item.dart';
+import '../../widgets/list_widgets/list_item/language_item.dart';
+import '../../widgets/list_widgets/list_item/profile_item.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -20,27 +21,101 @@ class _SettingsPageState extends State<SettingsPage> {
         titleText: 'Settings',
         leadingWidget: null,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 10,
+      body: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                    child: Text(
+                      'Account',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ProfileItem(),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  )
+                ],
+              ),
             ),
-            const AccountBlock(),
-            const SizedBox(
-              height: 10,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                    child: Text(
+                      'General',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  LanguageItem(),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  )
+                ],
+              ),
             ),
-            const GeneralBlock(),
-            const SizedBox(
-              height: 10,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+                    child: Text(
+                      'Support',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  AboutItem(),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  ),
+                  HelpItem(),
+                  Divider(
+                    color: Colors.black,
+                    thickness: 1,
+                    indent: 5,
+                    endIndent: 5,
+                  )
+                ],
+              ),
             ),
-            const SupportBlock(),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TextButton.icon(
                     style: OutlinedButton.styleFrom(
@@ -60,9 +135,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

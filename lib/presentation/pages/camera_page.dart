@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/presentation/widgets/appbars/mainbar.dart';
-import '../../application/services/camera_vision.dart';
 import '../../application/services/yolo_video.dart';
 
 class CameraPage extends StatefulWidget {

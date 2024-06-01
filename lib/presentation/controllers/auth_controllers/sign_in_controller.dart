@@ -9,10 +9,7 @@ class SignInController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
 
-  // void loginUser(String email, String password) {
-  //   AuthService.authService.signInWithEmailAndPassword(email, password);
-  // }
-
+  // logging in a user
   Future<void> loginUser(String email, String password) async {
     String? error = await AuthService.authService
         .signInWithEmailAndPassword(email, password);

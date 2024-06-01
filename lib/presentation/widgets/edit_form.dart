@@ -69,32 +69,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // TextFormField(
-                      //   controller: email,
-                      //   decoration:
-                      //       textInputDecoration.copyWith(label: Text('Email')),
-                      //   validator: (value) {
-                      //     if (value == null || value.isEmpty) {
-                      //       return 'Please enter an email';
-                      //     }
-                      //     if (!value.isEmail) {
-                      //       return 'Email wrongly formatted';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-                      // const SizedBox(
-                      //   height: 20,
-                      // ),
-                      // TextFormField(
-                      //   controller: password,
-                      //   obscureText: true,
-                      //   decoration: textInputDecoration.copyWith(
-                      //       label: Text('Password')),
-                      //   validator: (value) {
-                      //     return null;
-                      //   },
-                      // ),
                       TextFormField(
                         controller: phoneNo,
                         decoration: textInputDecoration.copyWith(
@@ -237,28 +211,29 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                       phoneNo: phoneNo.text.trim(),
                                       status: controller.status,
                                       languagePref: controller.languagePref);
+                                  
+                                  // perform some error handling
+                                  String? result =
+                                      await controller.updateUserDetails(user);
+                                  print(
+                                      'Result from edit-form ${result.toString()}');
 
-                                  // String? result =
-                                  //     await controller.updateUserDetails(user);
-                                  // print(
-                                  //     'Result from edit-form ${result.toString()}');
+                                  if (result == null) {
+                                    await controller.updateRecord(user);
+                                    Get.off(() => ProfilePage());
+                                  } else {
+                                    print('Result fail: ${result}');
+                                  }
 
-                                  // if (result == null) {
-                                  //   await controller.updateRecord(user);
-                                  //   Get.off(() => ProfilePage());
-                                  // } else {
-                                  //   print('Result fail: ${result}');
-                                  // }
-
-                                  await controller.updateRecord(user);
-                                  Get.off(() => const ProfilePage());
+                                  // await controller.updateRecord(user);
+                                  // Get.off(() => const ProfilePage());
                                 } else {
                                   print("Form not validated");
                                 }
 
-                                // setState(() {
-                                //   showLoader = false;
-                                // });
+                                setState(() {
+                                  showLoader = false;
+                                });
                               },
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(500, 55),
