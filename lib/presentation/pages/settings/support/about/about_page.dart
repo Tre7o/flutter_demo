@@ -25,7 +25,16 @@ class AboutPage extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.center,
-              height: 50,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: const Text(
+                  'Sign Talk',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100),
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
               child: const Text(
                 'Version 1.0.0',
                 style: TextStyle(fontWeight: FontWeight.bold),
