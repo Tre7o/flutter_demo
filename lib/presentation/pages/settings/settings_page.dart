@@ -27,8 +27,8 @@ class _SettingsPageState extends State<SettingsPage> {
             height: 10,
           ),
           Container(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(20, 20, 25, 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -54,8 +54,8 @@ class _SettingsPageState extends State<SettingsPage> {
             height: 10,
           ),
           Container(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(20, 20, 25, 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -81,8 +81,8 @@ class _SettingsPageState extends State<SettingsPage> {
             height: 10,
           ),
           Container(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 25, 30),
+            child: const Padding(
+              padding: EdgeInsets.fromLTRB(20, 20, 25, 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

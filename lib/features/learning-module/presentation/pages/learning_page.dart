@@ -69,12 +69,12 @@ class _LearningPageState extends State<LearningPage> {
         width: 200,
         decoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/abc-block.png'),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -103,12 +103,12 @@ class _LearningPageState extends State<LearningPage> {
         width: 200,
         decoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/numbers.png'),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -129,7 +129,7 @@ class _LearningPageState extends State<LearningPage> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => QuizScreen(),
+          builder: (context) => const QuizScreen(),
         ));
       },
       child: Container(
@@ -137,12 +137,12 @@ class _LearningPageState extends State<LearningPage> {
         width: 200,
         decoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset('assets/images/quiz.png'),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(

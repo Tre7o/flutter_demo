@@ -25,9 +25,9 @@ class AboutPage extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: const Text(
+              child: const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
                   'Sign Talk',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100),
                 ),

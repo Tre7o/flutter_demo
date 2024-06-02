@@ -28,8 +28,6 @@ class _QuizScreenState extends State<QuizScreen> {
 
   final TextEditingController _controller = TextEditingController();
 
-  String _message = '';
-
   var _questionIndex = 0;
 
   var _totalScore = 0;
@@ -45,8 +43,7 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() {
       if (_controller.text.toUpperCase() ==
           _questions[_questionIndex]['correctAnswer'].toUpperCase()) {
-        _message = 'Correct!';
-        Get.showSnackbar(GetSnackBar(
+        Get.showSnackbar(const GetSnackBar(
           message: "Correct!",
           duration: Duration(seconds: 1),
           backgroundColor: Colors.green,
@@ -54,8 +51,7 @@ class _QuizScreenState extends State<QuizScreen> {
         ));
         _totalScore += 5;
       } else {
-        _message = 'Incorrect, try again.';
-        Get.showSnackbar(GetSnackBar(
+        Get.showSnackbar(const GetSnackBar(
           message: "Incorrect, try again!",
           duration: Duration(seconds: 1),
           backgroundColor: Colors.red,
@@ -70,7 +66,6 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() {
       _questionIndex = _questionIndex + 1;
       _controller.clear();
-      _message = "";
     });
   }
 
@@ -78,7 +73,7 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: MyAppBar(
+      appBar: const MyAppBar(
         titleText: "Quiz",
         leadingWidget: BackButton(color: Colors.black),
       ),
@@ -99,11 +94,11 @@ class _QuizScreenState extends State<QuizScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Display the question text
-            Text(
+            const Text(
               "Guess the Letter!",
               style: TextStyle(fontSize: 30),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             // Display the image
@@ -129,36 +124,30 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
 
             //Input Answer container
-            SizedBox(height: 50.0),
+            const SizedBox(height: 50.0),
             TextFormField(
               controller: _controller,
               decoration: textInputDecoration.copyWith(
                   label: const Text('Your answer')),
             ),
-            SizedBox(height: 30.0),
+            const SizedBox(height: 30.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 //Submit button
                 ElevatedButton(
                   onPressed: _verifyAnswer,
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
 
                 //Next button
                 ElevatedButton(
                   onPressed: _displayNextQuestion,
-                  child: Text('Next'),
+                  child: const Text('Next'),
                 ),
               ],
             ),
 
-            //Verification message container
-            // SizedBox(height: 20.0),
-            // Text(
-            //   _message,
-            //   style: TextStyle(fontSize: 18.0, color: Colors.green[900]),
-            // ),
           ],
         ),
       );

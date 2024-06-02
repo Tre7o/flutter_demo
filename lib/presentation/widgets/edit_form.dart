@@ -19,8 +19,10 @@ class EditProfileForm extends StatefulWidget {
 class _EditProfileFormState extends State<EditProfileForm> {
   final controller = Get.put(ProfileController());
 
-  final _formKEY = GlobalKey<FormState>();
   // this _formKEY is used to identify our form
+  final _formKEY = GlobalKey<FormState>();
+
+  // ignore: unused_field
   late StreamSubscription<ConnectivityResult> _subscription;
   bool showLoader = false;
   bool isConnected = true;
@@ -51,10 +53,10 @@ class _EditProfileFormState extends State<EditProfileForm> {
   }
 
   void _showNoConnectionSnackBar() {
-    Get.showSnackbar(GetSnackBar(
+    Get.showSnackbar(const GetSnackBar(
       message: "This action requires an active internet connection",
-      duration: const Duration(seconds: 1),
-      margin: const EdgeInsets.all(8),
+      duration: Duration(seconds: 1),
+      margin: EdgeInsets.all(8),
     ));
   }
 
@@ -254,6 +256,11 @@ class _EditProfileFormState extends State<EditProfileForm> {
                                   // check whether there's an internet connection
                                   if (isConnected) {
                                     await controller.updateRecord(user);
+                                    Get.showSnackbar(const GetSnackBar(
+                                      message: "Profile updated successfully",
+                                      duration: Duration(seconds: 1),
+                                      margin: EdgeInsets.all(8),
+                                    ));
                                     Get.off(() => const ProfilePage());
                                   } else {
                                     _showNoConnectionSnackBar();

@@ -32,7 +32,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(
+        appBar: const MyAppBar(
           titleText: "Quick Sign Learning",
           leadingWidget: BackButton(color: Colors.black),
         ),
@@ -40,7 +40,7 @@ class _FlashcardScreenState extends State<FlashcardScreen> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              Text(
+              const Text(
                 "Guess the Sign and Flip!",
                 style: TextStyle(fontSize: 30),
               ),
