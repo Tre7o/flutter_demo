@@ -9,55 +9,52 @@ class OnBoardingScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Stack(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
+              Container(
+                height: 500,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/onboarding.png'))),
+              ),
+              const Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    height: 500,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/onboarding.png'))),
+                  Text(
+                    'Welcome to Sign Talk',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
-                  const Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Welcome to Sign Talk',
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(45.0),
-                        child: Text(
-                          'Your one stop to all your sign language conversion needs, here to bridge the gap between the deaf and hearing community',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w100, fontSize: 16),
-                          textAlign: TextAlign.center,
-                        ),
-                      )
-                    ],
-              
-                  ),
-                  OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SignUpScreen()));
-                    },
-                    style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Colors.black, width: 1),
-                        minimumSize: const Size(300, 50)),
-                    child: const Text(
-                      "Get Started",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
+                  Padding(
+                    padding: EdgeInsets.all(45.0),
+                    child: Text(
+                      'Your one stop to all your sign language conversion needs, here to bridge the gap between the deaf and hearing community',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w100, fontSize: 16),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  const SizedBox(height: 20,)
+                  )
                 ],
               ),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignUpScreen()));
+                },
+                style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.black, width: 1),
+                    minimumSize: const Size(300, 50)),
+                child: const Text(
+                  "Get Started",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),
