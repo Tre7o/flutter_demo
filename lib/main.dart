@@ -11,7 +11,7 @@ import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/about/about_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/help_page.dart';
 import 'package:get/get.dart';
-
+import 'features/learning-module/presentation/pages/learning_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/about': (context) => const AboutPage(),
         '/help': (context) => const HelpPage(),
         '/editprofile': (context) => const EditProfile(),
+        '/learningpage': (context) => const LearningPage(title: 'Learn',)
       },
     );
   }
