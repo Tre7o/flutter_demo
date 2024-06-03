@@ -43,20 +43,20 @@ class _QuizScreenState extends State<QuizScreen> {
     setState(() {
       if (_controller.text.toUpperCase() ==
           _questions[_questionIndex]['correctAnswer'].toUpperCase()) {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Correct!",
-          duration: Duration(seconds: 1),
-          backgroundColor: Colors.green,
-          margin: EdgeInsets.all(8),
-        ));
+        Get.snackbar("Correct", "You got it right.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green[100],
+            duration: const Duration(seconds: 1),
+            margin: const EdgeInsets.all(8),
+            colorText: Colors.green);
         _totalScore += 5;
       } else {
-        Get.showSnackbar(const GetSnackBar(
-          message: "Incorrect, try again!",
-          duration: Duration(seconds: 1),
-          backgroundColor: Colors.red,
-          margin: EdgeInsets.all(8),
-        ));
+        Get.snackbar("Incorrect", "You got it wrong.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red[100],
+            duration: const Duration(seconds: 1),
+            margin: const EdgeInsets.all(8),
+            colorText: Colors.red);
         _totalScore += 0;
       }
     });
@@ -147,7 +147,6 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               ],
             ),
-
           ],
         ),
       );
