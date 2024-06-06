@@ -37,7 +37,7 @@ class _HelpPageState extends State<HelpPage> {
                 height: 20,
               ),
               Text(
-                "Here's a guide to get you started on using the Sign Talk translator",
+                "Here's a guide to get you started on using the Signify translator",
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               SizedBox(
@@ -49,30 +49,28 @@ class _HelpPageState extends State<HelpPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(25, 5, 0, 0),
-                      child: Text(
-                        'Stay within 3 feet of the hand',
-                        style: TextStyle(fontSize: 15.0),
-                      ),
-                    ),
-                  ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(25, 16, 0, 0),
                     child: Text(
-                      'Make sure there is ample lighting, natural lighting breeds better results',
+                      'Tap the capture button in the middle to start recording',
                       style: TextStyle(fontSize: 15.0),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(25, 16, 0, 0),
                     child: Text(
-                      'Press the record button in the middle to start recording',
+                      "Position the subject's hand within the frame and perform the desired sign",
                       style: TextStyle(fontSize: 15.0),
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(25, 16, 0, 0),
+                    child: Text(
+                      'Tap the capture button again to end the translation.',
+                      style: TextStyle(fontSize: 15.0),
+                    ),
+                  ),
+                  
                   Padding(
                     padding: EdgeInsets.fromLTRB(25, 16, 0, 16),
                     child: Text(
@@ -92,6 +90,13 @@ class _HelpPageState extends State<HelpPage> {
                     padding: EdgeInsets.fromLTRB(25, 5, 16, 16),
                     child: Text(
                       'Tap the record button to stop recording and tap it again to resume recording',
+                      style: TextStyle(fontSize: 15.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(25, 16, 0, 0),
+                    child: Text(
+                      'Make sure there is ample lighting, natural lighting breeds better results',
                       style: TextStyle(fontSize: 15.0),
                     ),
                   ),
@@ -149,7 +154,7 @@ class _HelpPageState extends State<HelpPage> {
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(25, 8, 0, 0),
                       // child: Text(
-                      //   'Hearing status is on the Profile page, and language preferences in on the Language Preferences page',
+                      //   'Hearing status is on the Profile page, and language preferences is on the Language Preferences page',
                       //   style: TextStyle(fontSize: 15.0),
                       // ),
                       child: RichText(
@@ -165,7 +170,7 @@ class _HelpPageState extends State<HelpPage> {
                                     fontWeight: FontWeight.bold)),
                             TextSpan(
                                 text:
-                                    "page, and language preferences in on the "),
+                                    "page, and language preferences are on the "),
                             TextSpan(
                                 text: "Language Preferences ",
                                 style: TextStyle(

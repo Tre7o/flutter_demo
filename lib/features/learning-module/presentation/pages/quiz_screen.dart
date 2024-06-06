@@ -28,6 +28,8 @@ class _QuizScreenState extends State<QuizScreen> {
 
   final TextEditingController _controller = TextEditingController();
 
+  final _formKEY = GlobalKey<FormState>();
+
   var _questionIndex = 0;
 
   var _totalScore = 0;
@@ -125,10 +127,23 @@ class _QuizScreenState extends State<QuizScreen> {
 
             //Input Answer container
             const SizedBox(height: 50.0),
-            TextFormField(
-              controller: _controller,
-              decoration: textInputDecoration.copyWith(
-                  label: const Text('Your answer')),
+            Form(
+              key: _formKEY,
+              child: TextFormField(
+                controller: _controller,
+                decoration: textInputDecoration.copyWith(
+                    label: const Text('Your answer')),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please provide an answer";
+                  }
+                  final RegExp regex = RegExp(r'^[a-zA-Z]+$');
+                  if (!regex.hasMatch(value)) {
+                    return 'Please enter only letters (uppercase or lowercase)';
+                  }
+                  return null;
+                },
+              ),
             ),
             const SizedBox(height: 30.0),
             Row(
@@ -136,13 +151,21 @@ class _QuizScreenState extends State<QuizScreen> {
               children: [
                 //Submit button
                 ElevatedButton(
-                  onPressed: _verifyAnswer,
+                  onPressed: () {
+                    if (_formKEY.currentState!.validate()) {
+                      _verifyAnswer;
+                    }
+                  },
                   child: const Text('Submit'),
                 ),
 
                 //Next button
                 ElevatedButton(
-                  onPressed: _displayNextQuestion,
+                  onPressed: () {
+                    if (_formKEY.currentState!.validate()) {
+                      _displayNextQuestion;
+                    }
+                  },
                   child: const Text('Next'),
                 ),
               ],
