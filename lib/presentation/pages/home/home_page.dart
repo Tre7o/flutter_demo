@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeBar(titleText: 'SIGN TALK'),
+      appBar: const HomeBar(titleText: 'SIGNIFY'),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(

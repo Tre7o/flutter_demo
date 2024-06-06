@@ -186,9 +186,6 @@ class _QuizScreenState extends State<QuizScreen> {
   ];
 
   final TextEditingController _controller = TextEditingController();
-  final InputDecoration textInputDecoration = InputDecoration(
-    // Customize your input decoration here
-  );
 
   var _questionIndex = 0;
   var _totalScore = 0;
@@ -284,10 +281,12 @@ class _QuizScreenState extends State<QuizScreen> {
               ),
             ),
 
-            // Input Answer container
-            YourWidget(
+            //Input Answer container
+            const SizedBox(height: 50.0),
+            TextFormField(
               controller: _controller,
-              textInputDecoration: textInputDecoration,
+              decoration: textInputDecoration.copyWith(
+                  label: const Text('Your answer')),
             ),
             const SizedBox(height: 30.0),
             Row(
@@ -295,13 +294,21 @@ class _QuizScreenState extends State<QuizScreen> {
               children: [
                 // Submit button
                 ElevatedButton(
-                  onPressed: _verifyAnswer,
+                  onPressed: () {
+                    if (_formKEY.currentState!.validate()) {
+                      _verifyAnswer;
+                    }
+                  },
                   child: const Text('Submit'),
                 ),
 
                 // Next button
                 ElevatedButton(
-                  onPressed: _displayNextQuestion,
+                  onPressed: () {
+                    if (_formKEY.currentState!.validate()) {
+                      _displayNextQuestion;
+                    }
+                  },
                   child: const Text('Next'),
                 ),
               ],

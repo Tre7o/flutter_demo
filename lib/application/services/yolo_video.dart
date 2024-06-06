@@ -92,7 +92,7 @@ class _YoloVideoState extends State<YoloVideo> {
     try {
       await vision.loadYoloModel(
           labels: 'assets/labels.txt',
-          modelPath: 'assets/sign_model.tflite',
+          modelPath: 'assets/nano_model.tflite',
           modelVersion: "yolov8",
           numThreads: 2,
           useGpu: false);
