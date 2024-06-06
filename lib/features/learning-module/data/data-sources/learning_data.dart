@@ -28,16 +28,16 @@ var learningData = {
     {"image": "assets/gestures/Z.jpg", "letter": "Z"}
   ],
   "Numbers": [
-    {"image": "assets/gestures/0.jpeg", "letter": "0"},
-    {"image": "assets/gestures/1.jpeg", "letter": "1"},
-    {"image": "assets/gestures/2.jpeg", "letter": "2"},
-    {"image": "assets/gestures/3.jpeg", "letter": "3"},
-    {"image": "assets/gestures/4.jpeg", "letter": "4"},
-    {"image": "assets/gestures/5.jpeg", "letter": "5"},
-    {"image": "assets/gestures/6.jpeg", "letter": "6"},
-    {"image": "assets/gestures/7.jpeg", "letter": "7"},
-    {"image": "assets/gestures/8.jpeg", "letter": "8"},
-    {"image": "assets/gestures/9.png", "letter": "9"},
-    {"image": "assets/gestures/10.jpeg", "letter": "10"}
+    {"image": "assets/gestures/0.jpg", "letter": "0"},
+    {"image": "assets/gestures/1.jpg", "letter": "1"},
+    {"image": "assets/gestures/2.jpg", "letter": "2"},
+    {"image": "assets/gestures/3.jpg", "letter": "3"},
+    {"image": "assets/gestures/4.jpg", "letter": "4"},
+    {"image": "assets/gestures/5.jpg", "letter": "5"},
+    {"image": "assets/gestures/6.jpg", "letter": "6"},
+    {"image": "assets/gestures/7.jpg", "letter": "7"},
+    {"image": "assets/gestures/8.jpg", "letter": "8"},
+    {"image": "assets/gestures/9.jpg", "letter": "9"},
+    {"image": "assets/gestures/10.jpg", "letter": "10"}
   ],
 };
