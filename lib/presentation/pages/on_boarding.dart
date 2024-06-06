@@ -22,7 +22,7 @@ class OnBoardingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Welcome to Sign Talk',
+                    'Welcome to Signify',
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   Padding(

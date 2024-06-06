@@ -85,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               context, '/editprofile');
                         },
                         style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(300, 50)),
+                            minimumSize: const Size(500, 30)),
                         child: const Text(
                           "Edit Profile",
                           style: TextStyle(

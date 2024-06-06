@@ -98,7 +98,7 @@ flutter:
   assets:
     - assets/labels.txt
     - assets/model_float32.tflite
-    - assets/model_unquant.tflite
+    - assets/nano_model.tflite
     - assets/sign_model.tflite
     - assets/images/
     - assets/gestures/

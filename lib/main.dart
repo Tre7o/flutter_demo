@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: const OnBoardingScreen(),
-      title: "Sign Talk",
+      title: "Signify",
       // initialBinding: GlobalBindings(),
       routes: {
         '/home': (context) => const HomeScreen(),
