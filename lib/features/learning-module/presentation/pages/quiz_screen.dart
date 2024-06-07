@@ -92,8 +92,9 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_questionIndex < _questions.length) {
       return Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          shrinkWrap: true,
           children: [
             // Display the question text
             const Text(
