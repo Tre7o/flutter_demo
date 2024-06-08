@@ -8,7 +8,7 @@ import 'package:flutter_demo/presentation/pages/settings/language/language_page.
 import 'package:flutter_demo/presentation/pages/main_page.dart';
 import 'package:flutter_demo/presentation/pages/on_boarding.dart';
 import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
-import 'package:flutter_demo/presentation/pages/settings/support/about/about_page.dart';
+import 'package:flutter_demo/presentation/pages/settings/support/about_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/help_page.dart';
 import 'package:get/get.dart';
 import 'features/learning-module/presentation/pages/learning_page.dart';
