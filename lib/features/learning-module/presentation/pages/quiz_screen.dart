@@ -74,16 +74,13 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: const MyAppBar(
         titleText: "Quiz",
         leadingWidget: BackButton(color: Colors.black),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildBody(),
-        ],
+      body: Align(
+        alignment: Alignment.center,
+        child: SingleChildScrollView(child: _buildBody()),
       ),
     );
   }

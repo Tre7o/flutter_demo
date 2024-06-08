@@ -20,10 +20,10 @@ class _HelpPageState extends State<HelpPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Translation Guide",
@@ -33,17 +33,17 @@ class _HelpPageState extends State<HelpPage> {
                       color: Colors.black),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Text(
+              const Text(
                 "Here's a guide to get you started on using the Signify translator",
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              ExpansionTile(
+              const ExpansionTile(
                 title: Text(
                   'How to use the translator',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -80,7 +80,7 @@ class _HelpPageState extends State<HelpPage> {
                   ),
                 ],
               ),
-              ExpansionTile(
+              const ExpansionTile(
                 title: Text(
                   'Translations not accurate enough',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -102,7 +102,7 @@ class _HelpPageState extends State<HelpPage> {
                   ),
                 ],
               ),
-              ExpansionTile(
+              const ExpansionTile(
                 title: Text(
                   'Detection slow, or device heating up',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -117,10 +117,10 @@ class _HelpPageState extends State<HelpPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.topLeft,
                 child: Text(
                   "Profile Management",
@@ -130,21 +130,21 @@ class _HelpPageState extends State<HelpPage> {
                       color: Colors.black),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              Align(
+              const Align(
                 alignment: Alignment.topLeft,
                 child: Text(
                   "How to manage your account or profile",
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ExpansionTile(
-                title: Text(
+                title: const Text(
                   'Selecting hearing status and language preferences',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
@@ -152,13 +152,13 @@ class _HelpPageState extends State<HelpPage> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(25, 8, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(25, 8, 0, 0),
                       // child: Text(
                       //   'Hearing status is on the Profile page, and language preferences is on the Language Preferences page',
                       //   style: TextStyle(fontSize: 15.0),
                       // ),
                       child: RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.black),
                               children: <TextSpan>[
@@ -181,13 +181,13 @@ class _HelpPageState extends State<HelpPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(25, 16, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(25, 16, 16, 16),
                     // child: Text(
                     //   'You can see the selected options on the Edit Profile page, in case you want to change these options simply tap their respective containers',
                     //   style: TextStyle(fontSize: 15.0),
                     // ),
                     child: RichText(
-                        text: TextSpan(
+                        text: const TextSpan(
                             style:
                                 TextStyle(fontSize: 16.0, color: Colors.black),
                             children: <TextSpan>[
@@ -205,7 +205,7 @@ class _HelpPageState extends State<HelpPage> {
                   ),
                 ],
               ),
-              ExpansionTile(
+              const ExpansionTile(
                 title: Text(
                   'Profile taking long to load',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -235,8 +235,8 @@ class _HelpPageState extends State<HelpPage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
                                 color: Colors.grey[200]),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8.0),
                               child: Icon(
                                 Icons.headphones,
                                 size: 40,
@@ -244,8 +244,8 @@ class _HelpPageState extends State<HelpPage> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15),
                             child: Text(
                               "Need more help?",
                               style: TextStyle(
@@ -254,15 +254,15 @@ class _HelpPageState extends State<HelpPage> {
                           )
                         ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
+                      const Padding(
+                        padding: EdgeInsets.all(10),
                         child: Text(
                           "For more questions and guidance on the application, reach out using the contact information below",
                           style: TextStyle(color: Colors.grey),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                         child: Row(
                           children: [
                             Text(
@@ -272,14 +272,14 @@ class _HelpPageState extends State<HelpPage> {
                               ),
                             ),
                             Text(
-                              "help@signtalk.com",
+                              "help@signify-slc.com",
                               style: TextStyle(color: Colors.blue),
                             )
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                         child: Row(
                           children: [
                             Text(
