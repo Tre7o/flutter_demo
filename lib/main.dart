@@ -21,8 +21,8 @@ void main() async {
   ).then((value) => Get.put(AuthService()));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-        runApp(const MyApp());
-      });
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +36,16 @@ class MyApp extends StatelessWidget {
       home: const OnBoardingScreen(),
       title: "Signify",
       // initialBinding: GlobalBindings(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        buttonTheme: ButtonThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          buttonColor: Colors.blue,
+          textTheme: ButtonTextTheme.primary,
+        ),
+      ),
       routes: {
         '/home': (context) => const HomeScreen(),
         '/translator': (context) => const CameraPage(),
@@ -44,7 +54,9 @@ class MyApp extends StatelessWidget {
         '/about': (context) => const AboutPage(),
         '/help': (context) => const HelpPage(),
         '/editprofile': (context) => const EditProfile(),
-        '/learningpage': (context) => const LearningPage(title: 'Learn',)
+        '/learningpage': (context) => const LearningPage(
+              title: 'Learn',
+            )
       },
     );
   }
