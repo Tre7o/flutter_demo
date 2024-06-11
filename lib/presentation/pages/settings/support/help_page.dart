@@ -70,7 +70,6 @@ class _HelpPageState extends State<HelpPage> {
                       style: TextStyle(fontSize: 15.0),
                     ),
                   ),
-                  
                   Padding(
                     padding: EdgeInsets.fromLTRB(25, 16, 0, 16),
                     child: Text(
@@ -94,7 +93,7 @@ class _HelpPageState extends State<HelpPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(25, 16, 0, 0),
+                    padding: EdgeInsets.fromLTRB(25, 16, 0, 16),
                     child: Text(
                       'Make sure there is ample lighting, natural lighting breeds better results',
                       style: TextStyle(fontSize: 15.0),
@@ -220,7 +219,9 @@ class _HelpPageState extends State<HelpPage> {
                   ),
                 ],
               ),
-
+              const SizedBox(
+                height: 20,
+              ),
               Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(

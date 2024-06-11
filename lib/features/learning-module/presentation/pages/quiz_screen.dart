@@ -125,48 +125,51 @@ class _QuizScreenState extends State<QuizScreen> {
             //Input Answer container
             const SizedBox(height: 50.0),
             Form(
-              key: _formKEY,
-              child: TextFormField(
-                controller: _controller,
-                decoration: textInputDecoration.copyWith(
-                    label: const Text('Your answer')),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please provide an answer";
-                  }
-                  final RegExp regex = RegExp(r'^[a-zA-Z]+$');
-                  if (!regex.hasMatch(value)) {
-                    return 'Please enter only letters (uppercase or lowercase)';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const SizedBox(height: 30.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                //Submit button
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKEY.currentState!.validate()) {
-                      _verifyAnswer;
-                    }
-                  },
-                  child: const Text('Submit'),
-                ),
+                key: _formKEY,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _controller,
+                      decoration: textInputDecoration.copyWith(
+                          label: const Text('Your answer')),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please provide an answer";
+                        }
+                        final RegExp regex = RegExp(r'^[a-zA-Z]+$');
+                        if (!regex.hasMatch(value)) {
+                          return 'Please enter only letters (uppercase or lowercase)';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 30.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        //Submit button
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKEY.currentState!.validate()) {
+                              _verifyAnswer();
+                            }
+                          },
+                          child: const Text('Submit'),
+                        ),
 
-                //Next button
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKEY.currentState!.validate()) {
-                      _displayNextQuestion;
-                    }
-                  },
-                  child: const Text('Next'),
-                ),
-              ],
-            ),
+                        //Next button
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKEY.currentState!.validate()) {
+                              _displayNextQuestion();
+                            }
+                          },
+                          child: const Text('Next'),
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
           ],
         ),
       );
