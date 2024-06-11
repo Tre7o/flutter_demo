@@ -27,6 +27,7 @@ class _YoloVideoState extends State<YoloVideo> {
   bool isDetecting = false;
 
   String recognizedLabel = '';
+  String acceptedWord = ''; // To store the formed word
   List<Map> _voices = [];
   Map? _currentVoice;
 
@@ -35,6 +36,7 @@ class _YoloVideoState extends State<YoloVideo> {
     super.initState();
     Wakelock.enable();
     init();
+    initTTS();
   }
 
   // initialize camera
@@ -88,22 +90,24 @@ class _YoloVideoState extends State<YoloVideo> {
   }
 
   // loading model type and labels
+  // loading model type and labels
   Future<void> loadModel() async {
     try {
       await vision.loadYoloModel(
-          labels: 'assets/labels.txt',
-          modelPath: 'assets/nano_model.tflite',
-          modelVersion: "yolov8",
-          numThreads: 2,
-          useGpu: false);
+        labels: 'assets/labels.txt',
+        modelPath: 'assets/hub.tflite',
+        modelVersion: 'yolov8', // Specify the version of YOLO model, e.g., 'v5' for YOLOv5
+        numThreads: 2,
+      );
       setState(() {
         isLoaded = true;
       });
     } on Exception catch (e) {
       // TODO
-      e.printError();
+      print(e.toString());
     }
   }
+
 
   // perform gesture detection
   Future<void> objectDetection(CameraImage cameraImage) async {
@@ -143,6 +147,27 @@ class _YoloVideoState extends State<YoloVideo> {
     setState(() {
       isDetecting = false;
       yoloResults.clear();
+    });
+  }
+
+  // Function to accept the detected letter
+  void acceptLetter() {
+    setState(() {
+      acceptedWord += recognizedLabel; // Append the recognized letter to the word
+      recognizedLabel = ''; // Clear the recognized label after accepting
+    });
+  }
+
+  // Function to clear the recognized label
+  void clearLetter() {
+    setState(() {
+      recognizedLabel = '';
+    });
+  }
+  // Function to clear the accepted word
+  void clearWord() {
+    setState(() {
+      acceptedWord = '';
     });
   }
 
@@ -197,19 +222,23 @@ class _YoloVideoState extends State<YoloVideo> {
         Positioned(
           top: 10,
           width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Column(
             children: [
               Container(
-                  margin: const EdgeInsets.all(20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: recognizedLabel.isEmpty
-                      ? const Text("Text will be displayed here")
-                      : Text(recognizedLabel)),
+                margin: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: recognizedLabel.isEmpty
+                    ? const Text("Text will be displayed here")
+                    : Text(recognizedLabel),
+              ),
+              Text(
+                acceptedWord, // Display the formed word
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
             ],
           ),
         ),
@@ -222,29 +251,32 @@ class _YoloVideoState extends State<YoloVideo> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                  width: 5, color: Colors.white, style: BorderStyle.solid),
+                width: 5,
+                color: Colors.white,
+                style: BorderStyle.solid,
+              ),
             ),
             child: isDetecting
                 ? IconButton(
-                    onPressed: () async {
-                      stopDetection();
-                    },
-                    icon: const Icon(
-                      Icons.stop,
-                      color: Colors.red,
-                    ),
-                    iconSize: 50,
-                  )
+              onPressed: () async {
+                stopDetection();
+              },
+              icon: const Icon(
+                Icons.stop,
+                color: Colors.red,
+              ),
+              iconSize: 50,
+            )
                 : IconButton(
-                    onPressed: () async {
-                      await startDetection();
-                    },
-                    icon: const Icon(
-                      Icons.circle,
-                      color: Colors.white,
-                    ),
-                    iconSize: 50,
-                  ),
+              onPressed: () async {
+                await startDetection();
+              },
+              icon: const Icon(
+                Icons.circle,
+                color: Colors.white,
+              ),
+              iconSize: 50,
+            ),
           ),
         ),
         Positioned(
@@ -253,8 +285,16 @@ class _YoloVideoState extends State<YoloVideo> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                ElevatedButton(
+                  onPressed: clearWord,
+                  child: Text('Clear Word'),
+                ),
+                ElevatedButton(
+                  onPressed: acceptLetter,
+                  child: Text('Accept'),
+                ),
                 FloatingActionButton(
                   onPressed: () {
                     _flutterTts.speak(recognizedLabel);
@@ -264,7 +304,8 @@ class _YoloVideoState extends State<YoloVideo> {
               ],
             ),
           ),
-        )
+        ),
+
       ],
     );
   }
