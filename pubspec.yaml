@@ -96,8 +96,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/hub.tflite
+    - assets/hub2.tflite
     - assets/labels.txt
-    - assets/model_float32.tflite
+    - assets/sign.tflite
     - assets/nano_model.tflite
     - assets/sign_model.tflite
     - assets/images/

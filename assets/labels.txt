@@ -4,8 +4,10 @@ C
 D
 E
 F
+Friend
 G
 H
+Help-me
 I
 J
 K
@@ -14,13 +16,17 @@ M
 N
 O
 P
+Please
 Q
 R
 S
 T
+Thank you
 U
 V
 W
 X
 Y
 Z
+home
+sorry
