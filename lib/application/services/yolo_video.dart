@@ -297,7 +297,12 @@ class _YoloVideoState extends State<YoloVideo> {
                 ),
                 FloatingActionButton(
                   onPressed: () {
-                    _flutterTts.speak(recognizedLabel);
+                    if(acceptedWord == ''){
+                      _flutterTts.speak(recognizedLabel);
+                    }else{
+                      _flutterTts.speak(recognizedLabel);
+                    }
+                    
                   },
                   child: const Icon(Icons.speaker),
                 ),
