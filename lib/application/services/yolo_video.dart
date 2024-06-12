@@ -65,7 +65,7 @@ class _CameraVisionState extends State<CameraVision> {
     try {
       await vision.loadYoloModel(
           labels: 'assets/labels.txt',
-          modelPath: 'assets/sign_model.tflite',
+          modelPath: 'assets/finalv.tflite',
           modelVersion: "yolov8",
           numThreads: 2,
           useGpu: false);
