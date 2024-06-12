@@ -1,49 +1,50 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/domain/models/conversion_record.dart';
+import 'package:flutter_demo/presentation/widgets/loading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:get/get.dart';
 
-import '../../presentation/widgets/loading.dart';
-
-class YoloVideo extends StatefulWidget {
-  const YoloVideo({Key? key}) : super(key: key);
+class CameraVision extends StatefulWidget {
+  const CameraVision({super.key});
 
   @override
-  State<YoloVideo> createState() => _YoloVideoState();
+  State<CameraVision> createState() => _CameraVisionState();
 }
 
-class _YoloVideoState extends State<YoloVideo> {
-  late CameraController controller;
+class _CameraVisionState extends State<CameraVision> {
+  late CameraController _cameraController;
+  late List<CameraDescription> _cameras;
+  late CameraImage cameraImage;
+  late ConversionRecord conversionRecord;
+
   late List<Map<String, dynamic>> yoloResults;
-  late List<CameraDescription> cameras;
 
   FlutterVision vision = FlutterVision();
-  final FlutterTts _flutterTts = FlutterTts();
 
-  CameraImage? cameraImage;
+  String recognizedLabel = '';
   bool isLoaded = false;
   bool isDetecting = false;
 
-  String recognizedLabel = '';
-  String acceptedWord = ''; // To store the formed word
+  final FlutterTts _flutterTts = FlutterTts();
+
   List<Map> _voices = [];
   Map? _currentVoice;
 
   @override
   void initState() {
     super.initState();
-    Wakelock.enable();
+    Wakelock.enable(); // keep screen awake as soon as this page is launched
     init();
-    initTTS();
   }
 
   // initialize camera
   init() async {
-    cameras = await availableCameras();
-    controller = CameraController(cameras[0], ResolutionPreset.max);
-    controller.initialize().then((value) {
+    _cameras = await availableCameras();
+    _cameraController = CameraController(_cameras[0], ResolutionPreset.max);
+    _cameraController.initialize().then((value) {
       if (!mounted) {
         return;
       } else {
@@ -59,55 +60,22 @@ class _YoloVideoState extends State<YoloVideo> {
     });
   }
 
-  // initialize flutter text-to-speech service
-  void initTTS() {
-    _flutterTts.getVoices.then((data) {
-      try {
-        _voices = List<Map>.from(data);
-
-        print(_voices);
-        setState(() {
-          _voices =
-              _voices.where((voice) => voice["name"].contains("en")).toList();
-          _currentVoice = _voices.first;
-          setVoice(_currentVoice!);
-        });
-      } catch (e) {
-        print(e.toString());
-      }
-    });
-  }
-
-  void setVoice(Map voice) {
-    _flutterTts.setVoice({"name": voice["name"], "locale": voice["locale"]});
-  }
-
-  @override
-  void dispose() async {
-    Wakelock.disable();
-    controller.dispose();
-    super.dispose();
-  }
-
-  // loading model type and labels
   // loading model type and labels
   Future<void> loadModel() async {
     try {
       await vision.loadYoloModel(
-        labels: 'assets/labels.txt',
-        modelPath: 'assets/hub.tflite',
-        modelVersion: 'yolov8', // Specify the version of YOLO model, e.g., 'v5' for YOLOv5
-        numThreads: 2,
-      );
+          labels: 'assets/labels.txt',
+          modelPath: 'assets/sign_model.tflite',
+          modelVersion: "yolov8",
+          numThreads: 2,
+          useGpu: false);
       setState(() {
         isLoaded = true;
       });
     } on Exception catch (e) {
-      // TODO
-      print(e.toString());
+      e.printError();
     }
   }
-
 
   // perform gesture detection
   Future<void> objectDetection(CameraImage cameraImage) async {
@@ -123,6 +91,7 @@ class _YoloVideoState extends State<YoloVideo> {
         yoloResults = result;
         recognizedLabel = yoloResults[0]['tag'];
       });
+      print(yoloResults[0]['tag']);
     }
   }
 
@@ -131,10 +100,10 @@ class _YoloVideoState extends State<YoloVideo> {
     setState(() {
       isDetecting = true;
     });
-    if (controller.value.isStreamingImages) {
+    if (_cameraController.value.isStreamingImages) {
       return;
     }
-    await controller.startImageStream((image) async {
+    await _cameraController.startImageStream((image) async {
       if (isDetecting) {
         cameraImage = image;
         objectDetection(image);
@@ -150,32 +119,11 @@ class _YoloVideoState extends State<YoloVideo> {
     });
   }
 
-  // Function to accept the detected letter
-  void acceptLetter() {
-    setState(() {
-      acceptedWord += recognizedLabel; // Append the recognized letter to the word
-      recognizedLabel = ''; // Clear the recognized label after accepting
-    });
-  }
-
-  // Function to clear the recognized label
-  void clearLetter() {
-    setState(() {
-      recognizedLabel = '';
-    });
-  }
-  // Function to clear the accepted word
-  void clearWord() {
-    setState(() {
-      acceptedWord = '';
-    });
-  }
-
   // draw bounding boxes, and display classes and confidence levels
   List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
     if (yoloResults.isEmpty) return [];
-    double factorX = screen.width / (cameraImage?.height ?? 1);
-    double factorY = screen.height / (cameraImage?.width ?? 1);
+    double factorX = screen.width / (cameraImage.height);
+    double factorY = screen.height / (cameraImage.width);
 
     Color colorPick = const Color.fromARGB(255, 50, 233, 30);
 
@@ -204,108 +152,111 @@ class _YoloVideoState extends State<YoloVideo> {
   }
 
   @override
+  void dispose() {
+    Wakelock.disable();
+    _cameraController.dispose();
+    super.dispose();
+  }
+
+  // initialize flutter text-to-speech service
+  void initTTS() {
+    _flutterTts.getVoices.then((data) {
+      try {
+        _voices = List<Map>.from(data);
+
+        print(_voices);
+        setState(() {
+          _voices =
+              _voices.where((voice) => voice["name"].contains("en")).toList();
+          _currentVoice = _voices.first;
+          setVoice(_currentVoice!);
+        });
+      } catch (e) {
+        print(e.toString());
+      }
+    });
+  }
+
+  void setVoice(Map voice) {
+    _flutterTts.setVoice({"name": voice["name"], "locale": voice["locale"]});
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     if (!isLoaded) {
       return const Loading();
     }
-    return Stack(
-      fit: StackFit.expand,
+    return Column(
       children: [
-        AspectRatio(
-          aspectRatio: controller.value.aspectRatio,
-          child: CameraPreview(
-            controller,
-          ),
-        ),
-        ...displayBoxesAroundRecognizedObjects(size),
-        Positioned(
-          top: 10,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(20),
-                padding: const EdgeInsets.all(20),
+        Stack(
+          children: [
+            SizedBox(
+                height: Get.height - 260,
+                width: Get.width,
+                child: CameraPreview(
+                  _cameraController,
+                )),
+            ...displayBoxesAroundRecognizedObjects(size),
+            Positioned(
+              bottom: 70,
+              width: MediaQuery.of(context).size.width,
+              child: Container(
+                height: 80,
+                width: 80,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      width: 5, color: Colors.white, style: BorderStyle.solid),
                 ),
-                child: recognizedLabel.isEmpty
-                    ? const Text("Text will be displayed here")
-                    : Text(recognizedLabel),
+                child: isDetecting
+                    ? IconButton(
+                  onPressed: () async {
+                    stopDetection();
+                  },
+                  icon: const Icon(
+                    Icons.stop,
+                    color: Colors.red,
+                  ),
+                  iconSize: 50,
+                )
+                    : IconButton(
+                  onPressed: () async {
+                    await startDetection();
+                  },
+                  icon: const Icon(
+                    Icons.circle,
+                    color: Colors.white,
+                  ),
+                  iconSize: 50,
+                ),
               ),
-              Text(
-                acceptedWord, // Display the formed word
-                style: TextStyle(fontSize: 24, color: Colors.white),
+            ),
+          ],
+        ),
+        Container(
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Colors.black),
+                borderRadius: BorderRadius.circular(10)),
+            child: recognizedLabel.isEmpty
+                ? const Text("Text will be displayed here")
+                : Text(recognizedLabel)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: () {
+                  _flutterTts.speak(recognizedLabel);
+                },
+                child: const Icon(Icons.speaker),
               ),
             ],
           ),
-        ),
-        Positioned(
-          bottom: 75,
-          width: MediaQuery.of(context).size.width,
-          child: Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                width: 5,
-                color: Colors.white,
-                style: BorderStyle.solid,
-              ),
-            ),
-            child: isDetecting
-                ? IconButton(
-              onPressed: () async {
-                stopDetection();
-              },
-              icon: const Icon(
-                Icons.stop,
-                color: Colors.red,
-              ),
-              iconSize: 50,
-            )
-                : IconButton(
-              onPressed: () async {
-                await startDetection();
-              },
-              icon: const Icon(
-                Icons.circle,
-                color: Colors.white,
-              ),
-              iconSize: 50,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 10,
-          width: MediaQuery.of(context).size.width,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: clearWord,
-                  child: Text('Clear Word'),
-                ),
-                ElevatedButton(
-                  onPressed: acceptLetter,
-                  child: Text('Accept'),
-                ),
-                FloatingActionButton(
-                  onPressed: () {
-                    _flutterTts.speak(recognizedLabel);
-                  },
-                  child: const Icon(Icons.speaker),
-                ),
-              ],
-            ),
-          ),
-        ),
-
+        )
       ],
     );
   }
