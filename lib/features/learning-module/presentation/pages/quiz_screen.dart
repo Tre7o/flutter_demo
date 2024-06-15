@@ -71,6 +71,13 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  int displayQuestionNumber() {
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+    return _questionIndex;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +99,11 @@ class _QuizScreenState extends State<QuizScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+                "Attempting ${displayQuestionNumber()} question of ${_questions.length}"),
+            const SizedBox(
+              height: 30,
+            ),
             // Display the question text
             const Text(
               "Guess the Letter!",

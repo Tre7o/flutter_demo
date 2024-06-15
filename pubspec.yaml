@@ -99,6 +99,7 @@ flutter:
     - assets/labels.txt
     - assets/sign_language_model.tflite
     - assets/sign_model.tflite
+    - assets/words.tflite
     - assets/images/
     - assets/gestures/
 
