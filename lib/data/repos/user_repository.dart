@@ -15,7 +15,7 @@ class UserRepository extends GetxController {
     await _db
         .collection('Users')
         .add(user.toJson())
-        // ignore: avoid_types_as_parameter_names
+        // ignore: avoid_types_as_parameter_names, body_might_complete_normally_catch_error
         .catchError((error, StackTrace) {
       Get.snackbar("Error", "Something went wrong.",
           snackPosition: SnackPosition.BOTTOM,
