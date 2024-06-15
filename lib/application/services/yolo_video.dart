@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:get/get.dart';
 
 import '../../presentation/widgets/loading.dart';
 
@@ -95,9 +94,9 @@ class _YoloVideoState extends State<YoloVideo> {
     try {
       await vision.loadYoloModel(
         labels: 'assets/labels.txt',
-        modelPath: 'assets/hub.tflite',
+        modelPath: 'assets/words.tflite',
         modelVersion: 'yolov8', // Specify the version of YOLO model, e.g., 'v5' for YOLOv5
-        numThreads: 2,
+        numThreads: 1,
       );
       setState(() {
         isLoaded = true;
@@ -115,8 +114,8 @@ class _YoloVideoState extends State<YoloVideo> {
         bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
         imageHeight: cameraImage.height,
         imageWidth: cameraImage.width,
-        iouThreshold: 0.4,
-        confThreshold: 0.4,
+        iouThreshold: 0.25,
+        confThreshold: 0.25,
         classThreshold: 0.5);
     if (result.isNotEmpty) {
       setState(() {
@@ -300,7 +299,7 @@ class _YoloVideoState extends State<YoloVideo> {
                     if(acceptedWord == ''){
                       _flutterTts.speak(recognizedLabel);
                     }else{
-                      _flutterTts.speak(recognizedLabel);
+                      _flutterTts.speak(acceptedWord);
                     }
                     
                   },
