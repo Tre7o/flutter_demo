@@ -275,6 +275,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                               },
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(500, 55),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                                   backgroundColor: Colors.grey),
                               child: const Text(
                                 "Save Changes",

@@ -45,6 +45,8 @@ class OnBoardingScreen extends StatelessWidget {
                 },
                 style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Colors.black, width: 1),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
                     minimumSize: const Size(300, 50)),
                 child: const Text(
                   "Get Started",

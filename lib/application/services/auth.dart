@@ -5,7 +5,7 @@ import 'package:flutter_demo/application/exceptions/auth_exceptions/update_excep
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_in_page.dart';
 import 'package:flutter_demo/presentation/pages/auth_pages/sign_up_page.dart';
 import 'package:flutter_demo/presentation/pages/main_page.dart';
-import 'package:flutter_demo/presentation/pages/on_boarding.dart';
+import 'package:flutter_demo/presentation/screens/on_boarding.dart';
 import 'package:get/get.dart';
 
 class AuthService extends GetxController {

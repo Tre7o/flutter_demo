@@ -6,7 +6,7 @@ import 'package:flutter_demo/presentation/pages/camera_page.dart';
 import 'package:flutter_demo/presentation/pages/profile/edit_profile.dart';
 import 'package:flutter_demo/presentation/pages/settings/language/language_page.dart';
 import 'package:flutter_demo/presentation/pages/main_page.dart';
-import 'package:flutter_demo/presentation/pages/on_boarding.dart';
+import 'package:flutter_demo/presentation/screens/on_boarding.dart';
 import 'package:flutter_demo/presentation/pages/profile/profile_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/about_page.dart';
 import 'package:flutter_demo/presentation/pages/settings/support/help_page.dart';
