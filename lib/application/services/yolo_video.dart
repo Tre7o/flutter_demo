@@ -94,8 +94,9 @@ class _YoloVideoState extends State<YoloVideo> {
     try {
       await vision.loadYoloModel(
         labels: 'assets/word-labels.txt',
-        modelPath: 'assets/words.tflite',
-        modelVersion: 'yolov8', // Specify the version of YOLO model, e.g., 'v5' for YOLOv5
+        modelPath: 'assets/sign_word_model.tflite',
+        modelVersion:
+            'yolov8', // Specify the version of YOLO model, e.g., 'v5' for YOLOv5
         numThreads: 1,
       );
       setState(() {
@@ -106,7 +107,6 @@ class _YoloVideoState extends State<YoloVideo> {
       print(e.toString());
     }
   }
-
 
   // perform gesture detection
   Future<void> objectDetection(CameraImage cameraImage) async {
@@ -146,27 +146,6 @@ class _YoloVideoState extends State<YoloVideo> {
     setState(() {
       isDetecting = false;
       yoloResults.clear();
-    });
-  }
-
-  // Function to accept the detected letter
-  void acceptLetter() {
-    setState(() {
-      acceptedWord += recognizedLabel; // Append the recognized letter to the word
-      recognizedLabel = ''; // Clear the recognized label after accepting
-    });
-  }
-
-  // Function to clear the recognized label
-  void clearLetter() {
-    setState(() {
-      recognizedLabel = '';
-    });
-  }
-  // Function to clear the accepted word
-  void clearWord() {
-    setState(() {
-      acceptedWord = '';
     });
   }
 
@@ -257,25 +236,25 @@ class _YoloVideoState extends State<YoloVideo> {
             ),
             child: isDetecting
                 ? IconButton(
-              onPressed: () async {
-                stopDetection();
-              },
-              icon: const Icon(
-                Icons.stop,
-                color: Colors.red,
-              ),
-              iconSize: 50,
-            )
+                    onPressed: () async {
+                      stopDetection();
+                    },
+                    icon: const Icon(
+                      Icons.stop,
+                      color: Colors.red,
+                    ),
+                    iconSize: 50,
+                  )
                 : IconButton(
-              onPressed: () async {
-                await startDetection();
-              },
-              icon: const Icon(
-                Icons.circle,
-                color: Colors.white,
-              ),
-              iconSize: 50,
-            ),
+                    onPressed: () async {
+                      await startDetection();
+                    },
+                    icon: const Icon(
+                      Icons.circle,
+                      color: Colors.white,
+                    ),
+                    iconSize: 50,
+                  ),
           ),
         ),
         Positioned(
@@ -284,24 +263,11 @@ class _YoloVideoState extends State<YoloVideo> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton(
-                  onPressed: clearWord,
-                  child: Text('Clear Word'),
-                ),
-                ElevatedButton(
-                  onPressed: acceptLetter,
-                  child: Text('Accept'),
-                ),
                 FloatingActionButton(
                   onPressed: () {
-                    if(acceptedWord == ''){
-                      _flutterTts.speak(recognizedLabel);
-                    }else{
-                      _flutterTts.speak(acceptedWord);
-                    }
-                    
+                    _flutterTts.speak(recognizedLabel);
                   },
                   child: const Icon(Icons.speaker),
                 ),
@@ -309,7 +275,6 @@ class _YoloVideoState extends State<YoloVideo> {
             ),
           ),
         ),
-
       ],
     );
   }

@@ -1,6 +1,6 @@
-help-me
-friend
-how much
+Friend
+Help Me
+Home
+How Much
 Mine
 You
-home
