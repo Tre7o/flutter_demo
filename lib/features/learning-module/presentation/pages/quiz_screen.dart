@@ -94,13 +94,13 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Widget _buildBody() {
     if (_questionIndex < _questions.length) {
+      int questionCounter = _questionIndex + 1;
       return Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-                "Attempting ${displayQuestionNumber()} question of ${_questions.length}"),
+            Text("Attempting $questionCounter question of ${_questions.length}"),
             const SizedBox(
               height: 30,
             ),

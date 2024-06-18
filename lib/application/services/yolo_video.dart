@@ -24,6 +24,7 @@ class _YoloVideoState extends State<YoloVideo> {
   CameraImage? cameraImage;
   bool isLoaded = false;
   bool isDetecting = false;
+  bool isModelLoaded = false;
 
   String recognizedLabel = '';
   String acceptedWord = ''; // To store the formed word
@@ -41,7 +42,7 @@ class _YoloVideoState extends State<YoloVideo> {
   // initialize camera
   init() async {
     cameras = await availableCameras();
-    controller = CameraController(cameras[0], ResolutionPreset.max);
+    controller = CameraController(cameras[0], ResolutionPreset.medium);
     controller.initialize().then((value) {
       if (!mounted) {
         return;
@@ -95,8 +96,7 @@ class _YoloVideoState extends State<YoloVideo> {
       await vision.loadYoloModel(
         labels: 'assets/word-labels.txt',
         modelPath: 'assets/sign_word_model.tflite',
-        modelVersion:
-            'yolov8', // Specify the version of YOLO model, e.g., 'v5' for YOLOv5
+        modelVersion: 'yolov8', //
         numThreads: 1,
       );
       setState(() {
