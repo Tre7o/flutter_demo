@@ -165,7 +165,11 @@ class _SignUpFormState extends State<SignUpForm> {
                         });
                       },
                       style:
-                          ElevatedButton.styleFrom(minimumSize: const Size(350, 55)),
+                          ElevatedButton.styleFrom(
+                            minimumSize: const Size(350, 55),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                            backgroundColor: Colors.blue
+                          ),
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(

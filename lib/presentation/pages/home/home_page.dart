@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                       minimumSize: const Size(300, 50)),
                   child: const Text(
                     "Translate",
@@ -117,6 +118,7 @@ class _HomePageState extends State<HomePage> {
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,
                       side: const BorderSide(color: Colors.black, width: 1),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                       minimumSize: const Size(300, 50)),
                   child: const Text(
                     "Learn",

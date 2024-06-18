@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/presentation/pages/on_boarding.dart';
+import 'package:flutter_demo/presentation/screens/on_boarding.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
