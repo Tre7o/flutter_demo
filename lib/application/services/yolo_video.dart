@@ -42,7 +42,7 @@ class _YoloVideoState extends State<YoloVideo> {
   // initialize camera
   init() async {
     cameras = await availableCameras();
-    controller = CameraController(cameras[0], ResolutionPreset.medium);
+    controller = CameraController(cameras[0], ResolutionPreset.max);
     controller.initialize().then((value) {
       if (!mounted) {
         return;
